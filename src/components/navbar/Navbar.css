@@ -7,6 +7,9 @@
     justify-content: space-around;
     padding: 16px;
     box-shadow: 0 1px 3px -2px black;
+    position: relative;
+    z-index: 1000; /* Đảm bảo Navbar luôn trên cùng */
+    width: 100%;
 }
 
 .nav-logo{
