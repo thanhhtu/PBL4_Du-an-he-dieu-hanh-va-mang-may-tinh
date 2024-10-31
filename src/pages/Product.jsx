@@ -5,6 +5,7 @@ import { ShopContext } from '../Context/ShopContext';
 import ProductDisplay from '../components/ProductDisplay/ProductDisplay';
 import DescriptionBox from '../components/DescriptionBox/DescriptionBox';
 import RelatedProducts from '../components/RelatedProducts/RelatedProducts';
+import CommentBox from '../components/Comments/Comments';
 
 const Product = () => {
     const {all_product}= useContext(ShopContext)
@@ -18,7 +19,9 @@ const Product = () => {
            <Breadcrum product= {product} />
            <ProductDisplay product={product} />
            <DescriptionBox/>
+           <CommentBox/>
            <RelatedProducts/>
+           
         </div>
     );
 };
