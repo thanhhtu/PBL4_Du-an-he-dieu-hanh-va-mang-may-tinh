@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+    margin: 0;
+}
+
+body {
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: 'Poppins', sans-serif; /* Đã thêm sans-serif và dấu chấm phẩy */
+}
+
+code {
+    font-family: 'Source Code Pro', Menlo, Monaco, Consolas, 'Courier New', monospace; /* Đã sửa cú pháp */
+}
