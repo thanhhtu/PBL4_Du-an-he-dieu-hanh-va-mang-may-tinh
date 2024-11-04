@@ -1,0 +1,60 @@
+.offers {
+    display: flex; 
+    width: 65%;
+    height: 60vh;
+    padding: 0px 80px; /* Reduced padding for better spacing */
+    margin: 50px auto; /* Centered and reduced margin */
+    background: linear-gradient(180deg, #fde1ff 0%, #e1ffea22 60%);
+}
+
+.offers-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-right: 20px; /* Added margin to the right to separate from the image */
+}
+
+.offers-left h1 {
+    color: #171717;
+    font-size: 60px; /* Reduced font size */
+    font-weight: 600;
+    margin: 0; /* Remove default margin */
+}
+
+.offers-left p {
+    color: #171717;
+    font-size: 18px; /* Reduced font size */
+    font-weight: 600;
+    margin: 10px 0; /* Added margin for spacing between lines */
+}
+
+.offers-left button {
+    font-size: 18px; /* Reduced font size */
+    font-weight: 500;
+    border-radius: 25px; /* Reduced border radius for a more subtle look */
+    background: #ff4141;
+    border: none;
+    color: white;
+    padding: 10px 20px; /* Added padding for better button size */
+    margin-top: 20px; /* Reduced margin for spacing */
+    cursor: pointer;
+}
+
+.offers-right {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-top: 0; 
+}
+
+.offers-right img {
+    max-width: 100%; 
+    max-height: 100%;
+    width: auto; 
+    height: auto; 
+    object-fit: contain; 
+}
+
+
