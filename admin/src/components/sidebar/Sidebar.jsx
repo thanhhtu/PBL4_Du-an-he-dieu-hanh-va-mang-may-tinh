@@ -5,6 +5,7 @@ import add_product_icon from '../../assets/product_cart.svg';
 import list_products_icon from '../../assets/product_list_icon.svg';
 import manage_users_icon from '../../assets/manage_users_icon.svg';
 
+
 const Sidebar = () => {
     return (
         <div className='sidebar'>
@@ -28,7 +29,6 @@ const Sidebar = () => {
                     <p>Manage Users</p>
                 </Link>
             </div>
-            
         </div>
     )
 };
