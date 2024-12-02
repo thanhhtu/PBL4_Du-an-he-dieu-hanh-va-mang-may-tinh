@@ -1,0 +1,105 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.add-product{
+    box-sizing: border-box;
+    width: 100%;
+    padding: 10px 150px;
+    margin: 30px;
+    border-radius: 6px;
+    background-color: white;
+    overflow-y: auto;
+}
+
+.add-product-header > h1{
+    text-align: center;
+    padding: 20px 0;
+}
+
+.addProduct-itemField{
+    padding: 10px 0;
+    width: 100%;
+    color: #7b7b7b;
+    font-size: 16px;
+}
+
+.addProduct-itemField input, .addProduct-itemField textarea{
+    box-sizing: border-box;
+    width: 100%;
+    height: 50px;
+    border-radius: 4px;
+    padding-left: 15px;
+    border: 1px solid #c3c3c3;
+    margin-top: 5px;
+    outline: none;
+    color: #7b7b7b;
+    font-family: 'Poppins';
+    font-size: 14px;
+}
+
+.addProduct-itemField textarea{
+    outline: none;
+    padding: 10px 15px;
+    height: 80px;
+}
+
+.addProduct-itemField input:focus, .addProduct-itemField textarea:focus{
+    border: 2px solid #79AC78;
+}
+
+.addProduct-price{
+    display: flex;
+    gap: 50px;
+}
+
+.addProduct-thumbnail-img{
+    height: 180px;
+    width: 180px;
+    border-radius: 10px;
+    object-fit: contain;
+    margin: 20px 0;
+    cursor: pointer;
+}
+
+.file-input > input{
+    height: 180px;
+    width: 180px;
+}
+
+.addProduct-btn{
+    margin: 15px 0;
+    width: 185px;
+    height: 50px;
+    border-radius: 6px;
+    border: none;
+    background-color: #789DBC;
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+/* scroll */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(183, 183, 183, 0.781);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(155, 155, 155);
+}
+
+
+@media(max-width: 800px){
+    .add-product{
+        width: auto;
+        padding: 30px;
+        margin: 20px;
+    }
+}
