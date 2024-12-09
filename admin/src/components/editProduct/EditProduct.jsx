@@ -40,7 +40,7 @@ const EditProductPopup = ({ product, onClose, fetchInfo }) => {
             }
 
             const token = authService.getExpiredItem('auth-token');
-            const response = await fetch(`http://localhost:4000/products/${productId}`, {
+            const response = await fetch(`http://localhost:4000/product/${productId}`, {
                 method: 'PUT',
                 headers: {
                     'Accept': 'application/json',

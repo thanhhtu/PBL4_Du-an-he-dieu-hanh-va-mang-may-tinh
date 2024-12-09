@@ -3,6 +3,7 @@ import './ListProducts.css';
 import authService from '../../services/auth.service';
 import { ReusableToastContainer, errorToast, successToast } from '../notification/Notification';
 import EditProductPopup from '../editProduct/EditProduct';
+import Pagination from '../Pagination/Pagination';
 
 const ListProducts = () => {
     const [allProducts, setAllProducts] = useState([]);
@@ -11,7 +12,7 @@ const ListProducts = () => {
     const fetchInfo = async () => {
         try {
             const token = authService.getExpiredItem('auth-token');
-            const response = await fetch('http://localhost:4000/products', {
+            const response = await fetch('http://localhost:4000/product', {
                 method: 'GET',
                 headers: {
                     'Accept': 'application/json',
@@ -49,7 +50,7 @@ const ListProducts = () => {
     const removeProduct = async (productId) => {
         try {
             const token = authService.getExpiredItem('auth-token');
-            const response = await fetch(`http://localhost:4000/products/${productId}`, {
+            const response = await fetch(`http://localhost:4000/product/${productId}`, {
                 method: 'DELETE',
                 headers: {
                     'Accept': 'application/json',
@@ -110,53 +111,30 @@ const ListProducts = () => {
                             <p>{product.ProductName}</p>
                             <p>{product.Price} VND</p>
                             <p>{product.Quantity}</p>
-                            <p onClick={() => openEditPopup(product)} className='listProduct-icon'>
+                            <p onClick={() => openEditPopup(product)} className='listProduct-icon update-icon'>
                                 <i className='fa-regular fa-pen-to-square' />
                             </p>
-                            <p onClick={() => removeProduct(product.ProductId)} className='listProduct-icon'>
-                                <i className='fa-solid fa-trash'></i>
+                            <p onClick={() => removeProduct(product.ProductId)} className='listProduct-icon delete-icon'>
+                                <i className='fa-solid fa-trash' />
                             </p>
                         </div>
                 )})}
             </div>
 
             {/* Edit product popup */}
-            {
-                isEditPopupOpen && currentEditProduct && (
-                    <EditProductPopup 
-                        product={currentEditProduct}
-                        onClose={() => setIsEditPopupOpen(false)}
-                        fetchInfo={fetchInfo}
-                    />
-                )
-            }
+            {isEditPopupOpen && currentEditProduct && (
+                <EditProductPopup 
+                    product={currentEditProduct}
+                    onClose={() => setIsEditPopupOpen(false)}
+                    fetchInfo={fetchInfo}
+                />
+            )}
 
-            {/* Pagination Controls */}
-            <div className="pagination">
-                <button 
-                    onClick={() => paginate(currentPage - 1)} 
-                    disabled={currentPage === 1}
-                >
-                    Previous
-                </button>
-
-                {Array.from({ length: totalPages }, (_, i) => (
-                    <button
-                        key={i}
-                        onClick={() => paginate(i + 1)}
-                        className={currentPage === i + 1 ? 'active' : ''}
-                    >
-                        {i + 1}
-                    </button>
-                ))}
-                
-                <button 
-                    onClick={() => paginate(currentPage + 1)} 
-                    disabled={currentPage === totalPages}
-                >
-                    Next
-                </button>
-            </div>
+            <Pagination 
+                currentPage={currentPage} 
+                totalPages={totalPages} 
+                paginate={paginate} 
+            />
             <ReusableToastContainer />
         </div>
     )

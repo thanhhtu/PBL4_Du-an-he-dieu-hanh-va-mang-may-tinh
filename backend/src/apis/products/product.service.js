@@ -35,8 +35,6 @@ class ProductService{
         return errorHandlerFunc(async () => {
             const { imgPublicId, imgUrl } = await this.getImgInfo(img);
             const result = await productModel.addProduct(productInfo, imgUrl, imgPublicId);
-            console.log('path: ' + img.path)
-            console.log('path2: ' + imgUrl)
             return result;
         });
     }
@@ -64,9 +62,6 @@ class ProductService{
                 //delete old image
                 await cloudinary.uploader.destroy(product.ImagePublicId);
             }
-
-            
-            
 
             //update product
             const result = await productModel.updateProduct(productId, productInfo, imgPublicId, imgUrl);

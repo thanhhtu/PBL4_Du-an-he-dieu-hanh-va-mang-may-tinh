@@ -11,17 +11,22 @@ route.use(verifyMiddleware.checkAuth);
 
 route.route('/me')
     .get(
-        userController.getOwnInfo
+        authorizationMiddleware.checkPermission(Permission.VIEW_USER),
+        userController.getMe
+    )
+    .post(
+        authorizationMiddleware.checkPermission(Permission.VIEW_USER),
+        validateMiddleware.checkUserInfo,
+        userController.updateMe
     );
 
 route.get('/', 
     authorizationMiddleware.checkPermission(Permission.VIEW_ALL_USERS), 
-    userController.getAllUsersRoleUser
+    userController.getAllUsersByRoleUser
 );
 
-route.route('/:id')
-    .delete(
-        validateMiddleware.checkNumberParam,
+route.delete('/:userId',
+        validateMiddleware.userId,
         authorizationMiddleware.checkPermission(Permission.DELETE_USER),
         userController.deleteUser
     );

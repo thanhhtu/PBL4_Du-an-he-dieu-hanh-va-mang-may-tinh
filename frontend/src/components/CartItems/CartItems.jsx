@@ -1,80 +1,82 @@
 import React, { useContext } from 'react';
 import './CartItems.css';
 import { ShopContext } from '../../Context/ShopContext';
-import remove_icon from '../assets/cart_cross_icon.png';
+// import remove_icon from '../assets/cart_cross_icon.png';
 
 const CartItems = () => {
-    const { all_product, cartItems, removeFromCart, getTotalCartAmount } = useContext(ShopContext);
+    const {getTotalCartAmount, cartItems, updateCartItem} = useContext(ShopContext);
+    
+    const handleQuantityChange = (cartId, newQuantity) => {
+        const quantity = parseInt(newQuantity) || 0;
+        if (quantity >= 0) {
+            updateCartItem(cartId, quantity);
+        }
+    };
 
     return (
-        <div className='cartitems'>
-            <div className="cartitems-format-main">
-                <p>Products</p>
-                <p>Title</p>
+        <div className='cartItems'>
+            <div className='cartItems-format-main'>
+                <p>Product</p>
+                <p>Name</p>
                 <p>Price</p>
                 <p>Quantity</p>
                 <p>Total</p>
                 <p>Remove</p>
             </div>
             <hr/>
-            {all_product.map((product) => {
-                if (cartItems[product.id] > 0) {
-                    return (
-                        <div key={product.id}>
-                        <div className="cartitems-format cartitems-format-main">
-                            {/* Hiển thị hình ảnh sản phẩm */}
-                            <img src={product.image} alt={product.name} className='carticon-product-icon' />
+            {cartItems.map((cartItem) => {
+                return (
+                    <div key={cartItem.CartId}>
+                        <div className='cartItems-format cartItems-format-main'>
+                            <img src={cartItem.ProductImgUrl} alt={cartItem.ProductName} className='cartIcon-product-icon' />
                             
-                            {/* Tên sản phẩm */}
-                            <p>{product.name}</p>
+                            <p>{cartItem.ProductName}</p>
                             
-                            {/* Giá sản phẩm */}
-                            <p>${product.new_price}</p>
+                            <p>{cartItem.ProductPrice} VND</p>
                             
-                            {/* Số lượng sản phẩm trong giỏ hàng */}
-                            <button className='cartitems-quantity'>{cartItems[product.id]}</button>
-                            
-                            {/* Tổng tiền */}
-                            <p>${(product.new_price * cartItems[product.id]).toFixed(2)}</p>
-                            
-                            {/* Nút xóa sản phẩm */}
-                            <img className='cartitems-remove-icon' 
-                                src={remove_icon} 
-                                onClick={() => removeFromCart(product.id)} 
-                                alt="Remove item" 
+                            <input 
+                                className='cartItems-quantity' 
+                                type='number' 
+                                value={cartItem.Quantity} 
+                                onChange={(e) => handleQuantityChange(cartItem.ProductId, e.target.value)}
                             />
+                            
+                            <p>{(cartItem.ProductPrice * cartItem.Quantity).toFixed(2)} VND</p>
+
+                            <p onClick={() => removeProduct(product.ProductId)} className='cartItems-icon cartItems-remove-icon'>
+                                <i className='fa-solid fa-trash' />
+                            </p>
+
                         </div>
                         <hr />
-                        </div>
-                    );
-                }
-                return null; 
+                    </div>
+                );
             })}
-            <div className="cartitem-down">
-                <div className="cartitems-total">
+            <div className='cartItems-down'>
+                <div className='cartItems-total'>
                     <h1>Cart Totals</h1>
                     <div>
-                        <div className='cartitems-total-item'>
+                        <div className='cartItems-total-item'>
                             <p>Subtotal</p>
-                            <p>${getTotalCartAmount()}</p>
+                            <p>{getTotalCartAmount()} VND</p>
                         </div>
                         <hr/>
-                        <div className="cartitems-total-item">
+                        <div className='cartItems-total-item'>
                             <p>Shipping Fee</p>
                             <p>Free</p>
                         </div>
                         <hr/>
-                        <div className="cartitems-total-item">
+                        <div className='cartItems-total-item'>
                             <h3>Total</h3>
-                            <h3>${getTotalCartAmount()}</h3>
+                            <h3>{getTotalCartAmount()} VND</h3>
                         </div>
                     </div>
                     <button>PROCEED TO CHECKOUT</button>
                 </div>
-                <div className="cartitems-promocode">
+                <div className='cartItems-promoCode'>
                     <p>If you have a promo code, enter it here</p>
-                    <div className='cartitems-promobox'>
-                        <input type="text" placeholder='promo code' />
+                    <div className='cartItems-promoBox'>
+                        <input type='text' placeholder='promo code' />
                         <button>Submit</button>
                     </div>
                 </div>

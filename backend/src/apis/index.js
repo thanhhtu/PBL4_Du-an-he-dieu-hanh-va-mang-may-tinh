@@ -1,12 +1,16 @@
 import express from 'express';
 import authRoute from './auth/auth.router';
 import userRoute from './users/user.router';
-import productsRoute from './products/product.router';
+import productRoute from './products/product.router';
+import reviewRoute from './reviews/review.router';
+import cartRoute from './carts/cart.router';
 
 const router = express.Router();
 
 router.use('/auth', authRoute);
-router.use('/users', userRoute);
-router.use('/products', productsRoute);
+router.use('/user', userRoute);
+router.use('/product', productRoute);
+router.use('/review', reviewRoute);
+router.use('/cart', cartRoute);
 
 export default router;

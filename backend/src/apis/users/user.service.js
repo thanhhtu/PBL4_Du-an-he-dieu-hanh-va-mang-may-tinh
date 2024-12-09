@@ -15,26 +15,30 @@ class UserService {
         return userInfo;
     }
 
-    async getOwnInfo(userId) {
+    async getUserById(userId) {
         return errorHandlerFunc(async () => {
             const user = await userModel.getUserById(userId);
-            if(!user){
-                throw new CustomError(StatusCodes.NOT_FOUND, 'User not found');
-            }
             let userInfo = await this.userInfo(user);
             return userInfo;
         })
     }
 
-    async getAllUsersRoleUser() {
+    async updateUser(userId, userInfo) {
         return errorHandlerFunc(async () => {
-            const users = await userModel.getAllUsersRoleUser();
+            const result = await userModel.updateUser(userId, userInfo);
+            return result;
+        })
+    }
+
+    async getAllUsersByRoleUser() {
+        return errorHandlerFunc(async () => {
+            const users = await userModel.getAllUsersByRoleUser();
             let allUserInfo = [];
             for (let user of users) {
                 let userInfo = await this.userInfo(user);
                 allUserInfo.push(userInfo);
             }
-            return allUserInfo
+            return allUserInfo;
         })
     }
 

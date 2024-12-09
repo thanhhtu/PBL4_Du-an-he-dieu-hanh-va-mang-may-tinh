@@ -1,19 +1,26 @@
-import express from 'express'
-import productController from './product.controller'
-import uploadStorage from '../../service/multer.service'
-import verifyMiddleware from '../../middleware/verify.middleware'
-import authorizationMiddleware from '../../middleware/authorization.middleware'
-import { Permission } from '../../types/rbac.object'
-import validateMiddleware from '../../middleware/validate.middleware'
+import express from 'express';
+import productController from './product.controller';
+import uploadStorage from '../../service/multer.service';
+import verifyMiddleware from '../../middleware/verify.middleware';
+import authorizationMiddleware from '../../middleware/authorization.middleware';
+import { Permission } from '../../types/rbac.object';
+import validateMiddleware from '../../middleware/validate.middleware';
 
-const route = express.Router()
-
-route.use(verifyMiddleware.checkAuth)
+const route = express.Router();
 
 route.get('/',
-    authorizationMiddleware.checkPermission(Permission.VIEW_ALL_PRODUCTS),
     productController.getAllProducts
 );
+
+route.get('/popular',
+    productController.getPopularProducts
+);
+
+route.get('/new-collection',
+    productController.getNewCollection
+);
+
+route.use(verifyMiddleware.checkAuth);
 
 route.post('/',
     authorizationMiddleware.checkPermission(Permission.ADD_PRODUCT),
@@ -22,18 +29,18 @@ route.post('/',
     productController.addProduct
 );
 
-route.route('/:id')
+route.route('/:productId')
     .put(
-        validateMiddleware.checkNumberParam,
+        validateMiddleware.productId,
         authorizationMiddleware.checkPermission(Permission.EDIT_PRODUCT),
         uploadStorage.single('image'),
         validateMiddleware.checkProductInfo,
         productController.updateProduct
     )
     .delete(
-        validateMiddleware.checkNumberParam,
+        validateMiddleware.productId,
         authorizationMiddleware.checkPermission(Permission.DELETE_PRODUCT),
         productController.deleteProduct
     );
 
-export default route
+export default route;

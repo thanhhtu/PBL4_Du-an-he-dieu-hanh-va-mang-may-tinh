@@ -41,7 +41,13 @@
 
 .manageUser-remove-icon > i{
     font-size: 18px;
-    color: #454545;
+    color: #e53636;
+    transition: all 0.2s;
+}
+
+.manageUser-remove-icon > i:hover {
+    color: #c22c2c;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
 .manageUser-allUsers{

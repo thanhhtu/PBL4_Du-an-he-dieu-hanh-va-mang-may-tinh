@@ -43,6 +43,7 @@
     outline: none;
     padding: 10px 15px;
     height: 80px;
+    resize: vertical;
 }
 
 .addProduct-itemField input:focus, .addProduct-itemField textarea:focus{

@@ -1,13 +1,22 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import './Navbar.css'
 import logo from '../assets/logo.png'
 import cart_icon from '../assets/cart_icon.png'
 import { Link } from 'react-router-dom';
 import { ShopContext } from '../../Context/ShopContext';
+import authService from '../../services/auth.service';
 
 const Navbar = () => {
     const [menu, setMenu] = useState("shop")
     const {getTotalCartItems}= useContext(ShopContext);
+
+    const [name, setName] = useState('');
+    useEffect(() => {
+        const storedName = localStorage.getItem('name');
+        if (storedName) {
+            setName(storedName);
+        }
+    }, []);
 
     return (
         <div className='navbar'>
@@ -16,28 +25,35 @@ const Navbar = () => {
                 <p>TT SHOP</p>
             </div>
 
-            <ul className="nav-menu">
-                <li onClick={() => {setMenu("home")}}>
+            <ul className='nav-menu'>
+                <li onClick={() => {setMenu('home')}}>
                     <Link style= {{textDecoration: 'none'}} to ='/'>Home</Link> 
-                    {menu === "home" ? <hr/> : <></>}
+                    {menu === 'home' ? <hr/> : <></>}
                 </li>
-                <li onClick={() => {setMenu("all products")}}>
-                    <Link style= {{ textDecoration: 'none'}} to ='/allproducts'>All products</Link> 
-                    {menu === "all products" ? <hr/> : <></>}
+                <li onClick={() => {setMenu('all products')}}>
+                    <Link style= {{ textDecoration: 'none'}} to ='/all-products'>All products</Link> 
+                    {menu === 'all products' ? <hr/> : <></>}
                 </li>
             </ul> 
-            <div className="nav-login-cart">
-                {localStorage.getItem('auth-token')
-                    ? <button onClick={() => {
-                        localStorage.removeItem('auth-token');
-                        window.location.replace('/');
-                    }}>Logout</button>
+            
+            <div className='nav-name-login-cart'>
+                <div className='nav-name-login'>
+                    <div className='nav-name'>Hi {name || 'Guest'}</div>
 
-                    : <Link to='/login'><button>Login</button></Link>
-                }
+                    {authService.getExpiredItem('auth-token')
+                        ? <button onClick={() => {
+                            localStorage.removeItem('auth-token');
+                            localStorage.removeItem('name')
+                            window.location.replace('/');
+                        }}>Logout</button>
 
-                <Link to  ='/cart'><img src={cart_icon} alt="" /></Link>
-                <div className="nav-cart-count">{getTotalCartItems()}</div>
+                        : <Link to ='/login'><button>Login</button></Link>
+                    }
+                </div>
+                
+
+                <Link to ='/cart'><img src={cart_icon} alt='' /></Link>
+                <div className='nav-cart-count'>{getTotalCartItems()}</div>
             </div>
         </div>
     );

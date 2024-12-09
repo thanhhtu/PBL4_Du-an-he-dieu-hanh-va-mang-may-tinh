@@ -16,7 +16,7 @@ class AuthorizationMiddleware {
 
                 res.status(StatusCodes.FORBIDDEN).json({
                     success: false,
-                    error: 'You do not have permission to perform this action',
+                    error: 'Permission denied. Unable to perform this action',
                 });
             }catch(error){
                 handlerErrorRes(error, res);

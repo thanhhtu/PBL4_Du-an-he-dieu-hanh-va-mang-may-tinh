@@ -3,10 +3,10 @@ import userService from './user.service';
 import { handlerErrorRes } from '../../service/handleError.service';
 
 class UserController {
-    async getOwnInfo(req, res, next){
+    async getMe(req, res, next){
         try{
             const userId = req.user.id;
-            const user = await userService.getOwnInfo;
+            const user = await userService.getUserById(userId);
             res.status(StatusCodes.OK).json({
                 success: true,
                 data: user
@@ -16,10 +16,23 @@ class UserController {
         }
     }
 
-    async getAllUsersRoleUser(req, res, next){
+    async updateMe(req, res, next){
         try{
-            let users;
-            users = await userService.getAllUsersRoleUser();
+            const userId = req.user.id;
+            const userInfo = req.body;
+            await userService.updateUser(userId, userInfo);
+            res.status(StatusCodes.OK).json({
+                success: true,
+                message: 'Update successfully'
+            });
+        }catch(error){
+            handlerErrorRes(error, res);
+        }
+    }
+
+    async getAllUsersByRoleUser(req, res, next){
+        try{
+            const users = await userService.getAllUsersByRoleUser();
             res.status(StatusCodes.OK).json({
                 success: true,
                 data: users
@@ -31,7 +44,7 @@ class UserController {
 
     async deleteUser(req, res, next){
         try{
-            const userId = req.params.id;
+            const userId = req.params.userId;
             await userService.deleteUser(userId);
             res.status(StatusCodes.OK).json({
                 success: true,

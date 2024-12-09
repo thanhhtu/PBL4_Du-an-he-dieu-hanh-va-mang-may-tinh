@@ -34,7 +34,7 @@ class UserModel {
         });
     }
 
-    async getAllUsersRoleUser(){
+    async getAllUsersByRoleUser(){
         return errorHandlerFunc(async () => {
             const connection = await pool.getConnection();
             const roleId = await rbacModel.getRoleIdByRoleName(Role.USER);
@@ -67,6 +67,19 @@ class UserModel {
 
             connection.release();
             return userId;
+        });
+    }
+
+    async updateUser(userId, userInfo){
+        return errorHandlerFunc(async () => {
+            const connection = await pool.getConnection();
+            
+            const query = 'UPDATE user SET FullName = ?, PhoneNumber = ? WHERE UserId = ?';
+            const value = [userInfo.FullName, userInfo.PhoneNumber, userId];
+            const results = await connection.query(query, value);
+
+            connection.release();
+            return results[0].affectedRows;
         });
     }
 

@@ -3,21 +3,23 @@ import { useParams } from 'react-router-dom';
 import Breadcrum from '../components/Breadcrums/Breadcrum';
 import { ShopContext } from '../Context/ShopContext';
 import ProductDisplay from '../components/ProductDisplay/ProductDisplay';
-import DescriptionBox from '../components/DescriptionBox/DescriptionBox';
+import DescriptionReviewBox from '../components/DescriptionReviewBox/DescriptionReviewBox';
 import RelatedProducts from '../components/RelatedProducts/RelatedProducts';
+import { ReusableToastContainer } from '../components/Notification/Notification';
 
 const Product = () => {
-    const {all_product}= useContext(ShopContext)
+    const {allProducts}= useContext(ShopContext)
     const {productId}= useParams();
-    const product = all_product.find((e)=> e.id === Number(productId));
+    const product = allProducts.find((e)=> e.ProductId === Number(productId));
     if (!product) {
         return <div>Product not found</div>; // Fallback if product not found
     }
     return (
         <div>
+            <ReusableToastContainer />
            <Breadcrum product= {product} />
            <ProductDisplay product={product} />
-           <DescriptionBox/>
+           <DescriptionReviewBox product={product} />
            <RelatedProducts/>
         </div>
     );

@@ -2,10 +2,10 @@ import React, { useEffect } from 'react';
 import Login from './pages/login/Login';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Management from './pages/management/Management';
-import localstorageService from './services/auth.service';
+import authService from './services/auth.service';
 
 const ProtectedRoute = ({ children }) => {
-    const token = localstorageService.getExpiredItem('auth-token');
+    const token = authService.getExpiredItem('auth-token');
     if (!token) {
         return <Navigate to="/login" replace />
     }
@@ -14,7 +14,7 @@ const ProtectedRoute = ({ children }) => {
 
 const TokenManager = () => {
     useEffect(() => {
-        localstorageService.checkAuthToken();
+        authService.checkAuthToken();
     }, []);
     return null;
 }

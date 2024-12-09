@@ -35,7 +35,7 @@ const AddProduct = () => {
             formData.append('image', image);            
 
             const token = authService.getExpiredItem('auth-token');
-            const response = await fetch(`http://localhost:4000/products`, {
+            const response = await fetch(`http://localhost:4000/product`, {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',

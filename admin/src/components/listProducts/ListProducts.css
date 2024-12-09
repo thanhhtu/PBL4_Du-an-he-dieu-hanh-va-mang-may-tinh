@@ -51,7 +51,23 @@
 
 .listProduct-icon > i{
     font-size: 18px;
-    color: #454545;
+    transition: all 0.2s;
+}
+
+.update-icon i{
+    color: #79AC78;
+}
+
+.update-icon i:hover {
+    color: #5f8a5e;
+}
+
+.delete-icon i{
+    color: #e53636;
+}
+
+.delete-icon i:hover {
+    color: #c22c2c;
 }
 
 .listProduct-allProducts{

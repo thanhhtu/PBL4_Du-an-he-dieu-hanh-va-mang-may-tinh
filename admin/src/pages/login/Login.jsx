@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './Login.css';
-import localstorageService from '../../services/auth.service';
+import authService from '../../services/auth.service';
 import { errorToast, ReusableToastContainer } from '../../components/notification/Notification';
 
 const Login = () => {
@@ -10,7 +10,6 @@ const Login = () => {
     const showPasswordHandler = () => {
         setShowPassword((state) => !state);
     };
-
 
     //Login
     const [formData, setFormData] = useState({
@@ -26,8 +25,6 @@ const Login = () => {
     };
 
     const login = async () => {
-
-        console.log('login', formData);
         let resData;
         await fetch('http://localhost:4000/auth/login', {
             method: 'POST',
@@ -42,7 +39,7 @@ const Login = () => {
 
         if (resData.success) {
             if (resData.roles.includes('admin')) {
-                localstorageService.setExpiredItem('auth-token', resData.token, Number(import.meta.env.VITE_EXPIRED_TOKEN));
+                authService.setExpiredItem('auth-token', resData.token, Number(import.meta.env.VITE_EXPIRED_TOKEN));
                 localStorage.setItem('name', resData.name);
                 window.location.replace('/management');
             } else {

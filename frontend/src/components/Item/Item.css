@@ -1,14 +1,29 @@
+a{
+    text-decoration: none;
+    color: black;
+}
+
 .item{
-    width: 350px;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
 }
 
-.item > a > img {
+.item >  img {
     max-width: 350px;
-    min-height: 418px;
+    max-height: 380px;
 }
 
-.item p{
-    margin: 6px 0px;
+.item-name-price{
+    margin-top: 7px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    cursor: pointer;
+}
+
+.item-name-price p{
+    font-size: 18px;
 }
 
 .item-prices{
@@ -18,7 +33,7 @@
 
 .item-price-new{
     color: #374151;
-    font-size: 18px;
+    font-size: 17px;
     font-weight: 600;
 }
 

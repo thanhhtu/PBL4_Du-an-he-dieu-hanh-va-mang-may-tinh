@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './ManageUsers.css';
 import authService from '../../services/auth.service';
 import { ReusableToastContainer, errorToast, successToast } from '../notification/Notification';
+import Pagination from '../Pagination/Pagination';
 
 const ManageUsers = () => {
     const [allUsers, setAllUsers] = useState([]);
@@ -10,7 +11,7 @@ const ManageUsers = () => {
     const fetchInfo = async () => {
         try {
             const token = authService.getExpiredItem('auth-token');
-            const response = await fetch('http://localhost:4000/users', {
+            const response = await fetch('http://localhost:4000/user', {
                 method: 'GET',
                 headers: {
                     'Accept': 'application/json',
@@ -39,7 +40,7 @@ const ManageUsers = () => {
     const deleteUser = async (userId) => {
         try {
             const token = authService.getExpiredItem('auth-token');
-            const response = await fetch(`http://localhost:4000/users/${userId}`, {
+            const response = await fetch(`http://localhost:4000/user/${userId}`, {
                 method: 'DELETE',
                 headers: {
                     'Accept': 'application/json',
@@ -102,32 +103,11 @@ const ManageUsers = () => {
                 )})}
             </div>
 
-            {/* Pagination Controls */}
-            <div className="pagination">
-                <button 
-                    onClick={() => paginate(currentPage - 1)} 
-                    disabled={currentPage === 1}
-                >
-                    Previous
-                </button>
-
-                {Array.from({ length: totalPages }, (_, i) => (
-                    <button
-                        key={i}
-                        onClick={() => paginate(i + 1)}
-                        className={currentPage === i + 1 ? 'active' : ''}
-                    >
-                        {i + 1}
-                    </button>
-                ))}
-                
-                <button 
-                    onClick={() => paginate(currentPage + 1)} 
-                    disabled={currentPage === totalPages}
-                >
-                    Next
-                </button>
-            </div>
+            <Pagination 
+                currentPage={currentPage} 
+                totalPages={totalPages} 
+                paginate={paginate} 
+            />
             <ReusableToastContainer />
         </div>
     );

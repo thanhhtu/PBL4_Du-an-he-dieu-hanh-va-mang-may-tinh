@@ -1,37 +1,37 @@
-.productdisplay{
+.productDisplay{
     display: flex;
     margin: 0px 130px;
 }
 
-.productdisplay-left{
+.productDisplay-left{
     display:flex;
     gap: 17px;
 }
-.productdisplay-img-list{
+.productDisplay-img-list{
     display: flex;
     flex-direction: column;
     gap: 16px;
 }
 
-.productdisplay-img-list img{
-    height: 163px;
+.productDisplay-img-list img{
+    height: 190px;
 }
 
-.productdisplay-main-img{
-    width: 586px;
-    height: 700px;
+.productDisplay-main-img{
+    width: 480px;
+    height: 602px;
 }
-.productdisplay-right{
+.productDisplay-right{
     margin: 0px 70px;
     display: flex;
     flex-direction: column;
 }
-.productdisplay-right h1{
+.productDisplay-right h1{
     color: #3d3d3d;
     font-size: 30px;
     font-weight: 700;
 }
-.productdisplay-right-starts{
+.productDisplay-right-starts{
     display: flex;
     align-items: center;
     margin-top: 13px;
@@ -39,27 +39,27 @@
     color: #1c1c1c;
     font-size: 16px;
 }
-.productdisplay-right-prices{
+.productDisplay-right-prices{
     display: flex;
     margin: 20px 0px;
     gap: 10px;
     font-size: 24px;
     font-weight: 700;
 }
-.productdisplay-right-price-old{
+.productDisplay-right-price-old{
     color: #818181;
     text-decoration: line-through;
 }
-.productdisplay-right-price-new{
+.productDisplay-right-price-new{
     color: #ff4141;
 }
-.productdisplay-right-size h1{
+.productDisplay-right-size h1{
     margin-top: 55px;
     color: #656565;
     font-size: 20px;
     font-weight: 600;
 }
-.productdisplay-right-sizes{
+.productDisplay-right-sizes{
     display: flex;
     margin: 30px 0px;
     gap: 20px;
@@ -68,7 +68,7 @@
     background: transparent;
   
 }
-.productdisplay-right-sizes div{
+.productDisplay-right-sizes div{
     padding: 18px 24px;
     background: #fbfbfb;
     border: 1px solid #ebebeb;
@@ -76,7 +76,7 @@
     cursor: pointer;
 
 }
-.productdisplay-right button{
+.productDisplay-right button{
     padding: 20px 40px;
     width: 200px;
     font-size: 16px;
@@ -88,9 +88,9 @@
     border: none;
     cursor: pointer;
 }
-.productdisplay-right-category{
+.productDisplay-right-category{
     margin-top: 10px;
 }
-.productdisplay-right-category span{
+.productDisplay-right-category span{
     font-weight: 600;
 }

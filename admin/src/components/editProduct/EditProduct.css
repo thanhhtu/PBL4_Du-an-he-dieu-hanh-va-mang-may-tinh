@@ -117,9 +117,20 @@
 
 .update-btn {
     background-color: #79AC78;
-    
+    transition: all 0.2s;
+}
+
+.update-btn:hover {
+    background-color: #5f8a5e;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
 .cancel-btn {
-    background-color: #e04646;
+    background-color: #e53636;
+    transition: all 0.2s;
+}
+
+.cancel-btn:hover {
+    background-color: #c22c2c;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }

@@ -1,61 +1,92 @@
-.cartitems{
+.cartItems{
     margin: 100px 170px;
 }
-.cartitems hr{
+
+.cartItems hr{
    height: 3px;
    background: #e2e2e2; 
    border: 0;
 }
-.cartitems-format-main{
+
+.cartItems-format-main{
     display: grid;
-    grid-template-columns: 0.5fr 2fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1.5fr 1fr 1fr 1.5fr 0.5fr;
     align-items: center;
     gap: 75px;
     padding: 20px 0px;
     color: #454545;
     font-size: 18px;
     font-weight: 600;
-}
-cartitems-format{
-    font-size: 16px;
-    font-weight: 300;
-    height: 50px;
-}
-.cartitems-format p {
-    font-weight: 400; /* Thiết lập trọng số phông chữ bình thường */
+    text-align: center;
 }
 
-.carticon-product-icon{
+.cartItems-format{
+    font-size: 16px;
+    font-weight: 300;
+    text-align: center;
+}
+
+.cartItems-format p {
+    font-weight: 400;
+}
+
+.cartIcon-product-icon{
     height: 80px;
+    display: block;
+    margin: 0 auto;
 }
-.cartitems-remove-icon{
-    width: 15px;
-    cursor: pointer;
-    margin: 0px 40px;
-}
-.cartitems-quantity{
+
+.cartItems-quantity{
     width: 64px;
     height: 50px;
     border: 2px solid #ebebeb;
     background: #fff;
+    margin: 0 auto;
+    text-align: center;
 }
-.cartitem-down{
+
+.cartItems-icon > i{
+    font-size: 18px;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.cartItems-update-icon i{
+    color: #79AC78;
+}
+
+.cartItems-update-icon i:hover {
+    color: #5f8a5e;
+}
+
+.cartItems-remove-icon i{
+    color: #e53636;
+}
+
+.cartItems-remove-icon i:hover {
+    color: #c22c2c;
+}
+
+.cartItems-down{
      display: flex;
      margin: 100px 0px;
 }
-.cartitems-total{
+
+.cartItems-total{
     flex:1;
     display: flex;
     flex-direction: column;
     margin-right: 200px;
     gap: 40px;
 }
-.cartitems-total-item{
+
+.cartItems-total-item{
     display: flex;
     justify-content: space-between;
     padding: 15px 0px;
 }
-.cartitems-total button{
+
+.cartItems-total button{
     width: 262px;
     height: 58px;
     outline: none;
@@ -66,22 +97,26 @@ cartitems-format{
     font-weight: 600;
     cursor: pointer;
 }
-.cartitems-promocode {
+
+.cartItems-promoCode {
     flex:1;
     font-size: 16px;
     font-weight: 500;
 }
-.cartitems-promocode p{
+
+.cartItems-promoCode p{
     color: #555;
 }
-.cartitems-promobox{
+
+.cartItems-promoBox{
     width: 504px;
     margin-top: 15px;
     padding-left: 20px;
     height: 58px;
     background: #eaeaea;
 }
-.cartitems-promobox input{
+
+.cartItems-promoBox input{
     border: none;
     outline: none;
     background: transparent;
@@ -89,7 +124,8 @@ cartitems-format{
     width: 330px;
     height: 50px;
 }
-.cartitems-promobox button{
+
+.cartItems-promoBox button{
     width: 170px;
     height: 58px;
     font-size: 16px;
