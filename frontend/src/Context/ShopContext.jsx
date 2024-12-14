@@ -63,62 +63,45 @@ const ShopContextProvider = (props) => {
         }
     };
 
-    // useEffect(() => {
-    //     fetchProduct();
-    //     if(localStorage.getItem('auth-token')){
-    //         fetchCart();
-    //         console.log('bbbb:', cartItems); //không có giá trị cập nhật
-    //     }
-    // }, []);
-
     useEffect(() => {
         fetchProduct();
         if(localStorage.getItem('auth-token')){
             fetchCart();
         }
     }, []);
-    
-    // useEffect(() => {
-    //     if (localStorage.getItem('auth-token')) {
-    //         fetchCart();
-    //         console.log('bbbb:', cartItems);
-    //     }
-    // }, [allProducts]);
-
-
-
 
     //Add to cart
-    const addToCart = (itemId) => {
-        // console.log("Item ID:", itemId); // Kiểm tra xem itemId có hợp lệ không
-        setCartItems((prev) => {
-            const updatedCart = { ...prev, [itemId]: prev[itemId] + 1 };
-            // console.log("Updated Cart:", updatedCart); // Kiểm tra trạng thái mới
-            return updatedCart;
-        });
-
-        // if(localStorage.getItem('auth-token')){
-        //     fetch('http://localhost:4000/add-to-cart', {
-        //         method: 'POST',
-        //         headers: {
-        //             Accept: 'application/form-data',
-        //             'auth-token': `${localStorage.getItem('auth-token')}`,
-        //             'Content-Type': 'application/json',
-        //         },
-        //         body: JSON.stringify({'itemId': itemId})
-        //     })
-        //     .then((res) => res.json)
-        //     .then((data) => {
-        //         console.log(data)
-        //     })
-        // }
+    const addToCart = async (productId, newQuantity) => {
+        try {
+            const token = authService.getExpiredItem('auth-token');
+            const response = await fetch(`http://localhost:4000/cart/${productId}`, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+                body: JSON.stringify({Quantity: newQuantity})
+            });
+    
+            const data = await response.json();
+            
+            if (data.success) {
+                successToast(data.message);
+                fetchCart();
+            } else {
+                errorToast(data.message);
+            }
+        } catch (error) {
+            errorToast(error.message);
+        }
     }
 
     //Update cart item
-    const updateCartItem = async (cartId, newQuantity) => {
+    const updateCartItem = async (productId, newQuantity) => {
         try {
             const token = authService.getExpiredItem('auth-token');
-            const response = await fetch(`http://localhost:4000/cart/${cartId}`, {
+            const response = await fetch(`http://localhost:4000/cart/${productId}`, {
                 method: 'PUT',
                 headers: {
                     'Accept': 'application/json',
@@ -142,29 +125,34 @@ const ShopContextProvider = (props) => {
     }
 
     //Remove form cart
-    const removeFromCart = (itemId) => {
-        setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] - 1 }));
-
-        // if(localStorage.getItem('auth-token')){
-        //     fetch('http://localhost:4000/remove-from-cart', {
-        //         method: 'POST',
-        //         headers: {
-        //             Accept: 'application/form-data',
-        //             'auth-token': `${localStorage.getItem('auth-token')}`,
-        //             'Content-Type': 'application/json',
-        //         },
-        //         body: JSON.stringify({'itemId': itemId})
-        //     })
-        //     .then((res) => res.json)
-        //     .then((data) => {
-        //         console.log(data)
-        //     })
-        // }
+    const removeFromCart = async (productId) => {
+        try {
+            const token = authService.getExpiredItem('auth-token');
+            const response = await fetch(`http://localhost:4000/cart/${productId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+            });
+    
+            const data = await response.json();
+            
+            if (data.success) {
+                successToast(data.message);
+                fetchCart();
+            } else {
+                errorToast(data.message);
+            }
+        } catch (error) {
+            errorToast(error.message);
+        }
     }
 
     const getTotalCartAmount = () => {
         const totalAmount = cartItems.reduce(
-            (sum, item) => sum + item.ProductPrice * item.Quantity,
+            (sum, item) => sum + item.ProductPrice * item.CartQuantity,
             0
         );
         return totalAmount;
@@ -174,10 +162,7 @@ const ShopContextProvider = (props) => {
         return cartItems.length;
     }
 
-    //useEffect để log ra giá trị của cartItems mỗi khi nó thay đổi
-    useEffect(() => {
-        // console.log("Cart Items Updated:", cartItems);
-    }, [cartItems]);
+    useEffect(() => {}, [cartItems]);
 
     const contextValue = {getTotalCartItems, getTotalCartAmount, allProducts, cartItems, addToCart, updateCartItem, removeFromCart};
 

@@ -18,6 +18,7 @@ route.route('/:productId')
     .post(
         validateMiddleware.productId,
         authorizationMiddleware.checkPermission(Permission.ADD_TO_CART),
+        validateMiddleware.checkProductCartQuantity,
         cartController.addProductToCart
     )
     .put(

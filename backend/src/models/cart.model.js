@@ -23,11 +23,9 @@ class CartModel {
     async addProductToCart(userId, productId, quantity){
         return errorHandlerFunc(async () => {
             const connection = await pool.getConnection();
-            
             const query = 'INSERT INTO cart (UserId, ProductId, Quantity) VALUES (?, ?, ?);';
             const value = [userId, productId, quantity];
             const result = await connection.query(query, value);
-
             connection.release();
             return result[0].insertId;
         });
@@ -36,11 +34,9 @@ class CartModel {
     async updateProductInCart(userId, productId, quantity){
         return errorHandlerFunc(async () => {
             const connection = await pool.getConnection();
-            
             const query = 'UPDATE cart SET Quantity = ? WHERE UserId = ? AND ProductId = ?';
             const value = [quantity, userId, productId];
             const result = await connection.query(query, value);
-
             connection.release();
             return result[0].insertId;
         });

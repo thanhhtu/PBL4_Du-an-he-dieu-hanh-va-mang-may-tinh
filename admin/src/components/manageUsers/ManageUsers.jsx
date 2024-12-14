@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './ManageUsers.css';
 import authService from '../../services/auth.service';
 import { ReusableToastContainer, errorToast, successToast } from '../notification/Notification';
-import Pagination from '../Pagination/Pagination';
+import Pagination from '../pagination/Pagination';
 
 const ManageUsers = () => {
     const [allUsers, setAllUsers] = useState([]);

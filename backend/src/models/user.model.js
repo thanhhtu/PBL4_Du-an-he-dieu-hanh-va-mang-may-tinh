@@ -86,13 +86,7 @@ class UserModel {
     async deleteUser(userId) {
         return errorHandlerFunc(async () => {
             const connection = await pool.getConnection();
-
-            //delete role of user
-            await connection.query('DELETE FROM user_role WHERE UserId = ?', userId);
-
-            //delete user
             const result = await connection.query('DELETE FROM user WHERE UserId = ?', userId);
-
             connection.release();
             return result[0].affectedRows;
         });

@@ -20,8 +20,9 @@ class CartController {
         try{
             const userId = req.user.id;
             const productId = req.params.productId;
+            const quantity = req.body.Quantity;
 
-            const result = await cartService.addProductToCart(userId, productId);
+            const result = await cartService.addProductToCart(userId, productId, quantity);
             res.status(StatusCodes.OK).json({
                 success: true,
                 message: 'Add successfully',
