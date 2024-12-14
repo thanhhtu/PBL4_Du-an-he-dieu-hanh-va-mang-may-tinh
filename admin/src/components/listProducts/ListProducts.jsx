@@ -3,7 +3,7 @@ import './ListProducts.css';
 import authService from '../../services/auth.service';
 import { ReusableToastContainer, errorToast, successToast } from '../notification/Notification';
 import EditProductPopup from '../editProduct/EditProduct';
-import Pagination from '../Pagination/Pagination';
+import Pagination from '../pagination/Pagination';
 
 const ListProducts = () => {
     const [allProducts, setAllProducts] = useState([]);
@@ -96,8 +96,8 @@ const ListProducts = () => {
                 <p>Edit</p>
                 <p>Remove</p>
             </div>
+            <hr />
             <div className='listProduct-allProducts'>
-                <hr />
                 {currentProducts.map((product, index) => {
                     const no = index + (currentPage - 1) * productsPerPage + 1;
                     return (

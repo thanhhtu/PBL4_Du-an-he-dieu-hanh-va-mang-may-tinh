@@ -7,7 +7,7 @@ import { ShopContext } from '../../Context/ShopContext';
 import authService from '../../services/auth.service';
 
 const Navbar = () => {
-    const [menu, setMenu] = useState("shop")
+    const [menu, setMenu] = useState('home')
     const {getTotalCartItems}= useContext(ShopContext);
 
     const [name, setName] = useState('');

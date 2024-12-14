@@ -233,9 +233,6 @@ const DescriptionReviewBox = ({ product }) => {
                             {currentReviews.map((review, index) => (
                                 <div key={index} className="review-container">
                                     <div className='review-user'>{review.User}</div>
-                                    {/* <div className='review-date'>
-                                        {format(new Date(review.UpdatedAt||review.CreatedAt), 'yyyy-MM-dd HH:mm:ss')}
-                                    </div> */}
                                     <div className='review-date'>
                                         {review.UpdatedAt || review.CreatedAt 
                                             ? format(new Date(review.UpdatedAt || review.CreatedAt), 'yyyy-MM-dd HH:mm:ss')

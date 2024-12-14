@@ -1,17 +1,37 @@
 import React, { useContext } from 'react';
 import './CartItems.css';
 import { ShopContext } from '../../Context/ShopContext';
-// import remove_icon from '../assets/cart_cross_icon.png';
 
 const CartItems = () => {
-    const {getTotalCartAmount, cartItems, updateCartItem} = useContext(ShopContext);
+    const {getTotalCartAmount, cartItems, updateCartItem, removeFromCart} = useContext(ShopContext);
     
-    const handleQuantityChange = (cartId, newQuantity) => {
-        const quantity = parseInt(newQuantity) || 0;
-        if (quantity >= 0) {
-            updateCartItem(cartId, quantity);
+    const handleQuantityChange = (productId, quantity) => {
+        const quantityNum = parseInt(quantity) || 0;
+        if (quantityNum >= 0) {
+            updateCartItem(productId, quantityNum);
         }
     };
+
+    const handleQuantityAdjust = (productId, action) => {
+        const currentItem = cartItems.find(item => item.ProductId === productId);
+        
+        if (currentItem) {
+            let quantity = currentItem.CartQuantity;
+            
+            if (action === 'increase') {
+                quantity += 1;
+            } else if (action === 'decrease') {
+                quantity = Math.max(1, quantity - 1);
+            }
+            
+            updateCartItem(productId, quantity);
+        }
+    };
+
+    const formattedPrice = (price) => {
+        const newPrice = price;
+        return new Intl.NumberFormat('vi-VN').format(newPrice);
+    }
 
     return (
         <div className='cartItems'>
@@ -32,18 +52,35 @@ const CartItems = () => {
                             
                             <p>{cartItem.ProductName}</p>
                             
-                            <p>{cartItem.ProductPrice} VND</p>
-                            
-                            <input 
-                                className='cartItems-quantity' 
-                                type='number' 
-                                value={cartItem.Quantity} 
-                                onChange={(e) => handleQuantityChange(cartItem.ProductId, e.target.value)}
-                            />
-                            
-                            <p>{(cartItem.ProductPrice * cartItem.Quantity).toFixed(2)} VND</p>
+                            <p>{formattedPrice(cartItem.ProductPrice)} VND</p>
 
-                            <p onClick={() => removeProduct(product.ProductId)} className='cartItems-icon cartItems-remove-icon'>
+                            <div className='cartItems-quantity'>
+                                <div className='quantity'>
+                                    <button 
+                                        onClick={() => handleQuantityAdjust(cartItem.ProductId, 'decrease')}
+                                        disabled={cartItem.CartQuantity === 1}
+                                    > - </button>
+                                    <input 
+                                        type='number' 
+                                        pattern="\d*"
+                                        inputMode="numeric"
+                                        value={cartItem.CartQuantity}
+                                        onChange={(e) => {
+                                            const sanitizedValue = e.target.value.replace(/[^0-9]/g, '');
+                                            handleQuantityChange(cartItem.ProductId, sanitizedValue);
+                                        }}
+                                        min="1"
+                                    />
+                                    <button 
+                                        onClick={() => handleQuantityAdjust(cartItem.ProductId, 'increase')}
+                                        disabled={cartItem.CartQuantity === cartItem.ProductQuantity}
+                                    > + </button>
+                                </div>
+                                <div className='product-quantity'>{cartItem.ProductQuantity} products left</div>
+                            </div>
+                            <p>{formattedPrice(cartItem.ProductPrice * cartItem.CartQuantity)} VND</p>
+
+                            <p onClick={() => removeFromCart(cartItem.ProductId)} className='cartItems-icon cartItems-remove-icon'>
                                 <i className='fa-solid fa-trash' />
                             </p>
 
@@ -58,7 +95,7 @@ const CartItems = () => {
                     <div>
                         <div className='cartItems-total-item'>
                             <p>Subtotal</p>
-                            <p>{getTotalCartAmount()} VND</p>
+                            <p>{formattedPrice(getTotalCartAmount())} VND</p>
                         </div>
                         <hr/>
                         <div className='cartItems-total-item'>
@@ -68,7 +105,7 @@ const CartItems = () => {
                         <hr/>
                         <div className='cartItems-total-item'>
                             <h3>Total</h3>
-                            <h3>{getTotalCartAmount()} VND</h3>
+                            <h3>{formattedPrice(getTotalCartAmount())} VND</h3>
                         </div>
                     </div>
                     <button>PROCEED TO CHECKOUT</button>

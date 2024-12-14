@@ -13,7 +13,8 @@ class CartService{
             ProductName: product.ProductName,
             ProductImgUrl: product.ImageUrl,
             ProductPrice: Number(product.Price),
-            Quantity: Number(cart.Quantity)
+            ProductQuantity: Number(product.Quantity),
+            CartQuantity: Number(cart.Quantity)
         };
         return cartInfo;
     }
@@ -30,20 +31,27 @@ class CartService{
         });
     }
 
-    async addProductToCart(userId, productId){
+    async addProductToCart(userId, productId, quantity){
         return errorHandlerFunc(async () => {
             const product = await productModel.getProductById(productId);
             if(!product){
                 throw new CustomError(StatusCodes.NOT_FOUND, 'Product not found');
             }
+
             const productInCart = await cartModel.getProductInCart(userId, productId);
+            
             if(productInCart){
-                const quantity = productInCart.Quantity + 1;
+                quantity += productInCart.Quantity;
+                if(quantity > product.Quantity){
+                    throw new CustomError(StatusCodes.BAD_REQUEST, `Only have ${product.Quantity} products`);
+                }
                 await cartModel.updateProductInCart(userId, productId, quantity);
-                console.log(productInCart)
                 return productInCart.CartId;
             }else{
-                const quantity = 1;
+                if(quantity > product.Quantity){
+                    throw new CustomError(StatusCodes.BAD_REQUEST, `Only have ${product.Quantity} products`);
+                }
+
                 const result = await cartModel.addProductToCart(userId, productId, quantity);
                 return result;
             }
@@ -52,9 +60,13 @@ class CartService{
 
     async updateCart(userId, productId, quantity){
         return errorHandlerFunc(async () => {
+            const product = await productModel.getProductById(productId);
             const productInCart = await cartModel.getProductInCart(userId, productId);
             if(!productInCart){
                 throw new CustomError(StatusCodes.NOT_FOUND, 'Product not found in cart');
+            }
+            if(quantity > product.Quantity){
+                throw new CustomError(StatusCodes.BAD_REQUEST, `Only have ${product.Quantity} products`);
             }
             
             const result = await cartModel.updateProductInCart(userId, productId, quantity);

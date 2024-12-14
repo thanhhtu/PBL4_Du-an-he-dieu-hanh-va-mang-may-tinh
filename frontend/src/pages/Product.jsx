@@ -5,7 +5,6 @@ import { ShopContext } from '../Context/ShopContext';
 import ProductDisplay from '../components/ProductDisplay/ProductDisplay';
 import DescriptionReviewBox from '../components/DescriptionReviewBox/DescriptionReviewBox';
 import RelatedProducts from '../components/RelatedProducts/RelatedProducts';
-import { ReusableToastContainer } from '../components/Notification/Notification';
 
 const Product = () => {
     const {allProducts}= useContext(ShopContext)
@@ -16,7 +15,6 @@ const Product = () => {
     }
     return (
         <div>
-            <ReusableToastContainer />
            <Breadcrum product= {product} />
            <ProductDisplay product={product} />
            <DescriptionReviewBox product={product} />

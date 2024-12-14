@@ -54,30 +54,6 @@
     overflow-y: auto;
 }
 
-/* pagination */
-.pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px 0;
-    margin-top: auto;
-}
-
-.pagination button {
-    margin: 0 5px;
-    padding: 5px 10px;
-    font-family: "Poppins";
-    font-size: 15px;
-    border: 1px solid #a6abb1;
-    border-radius: 2px;
-    cursor: pointer;
-}
-
-.pagination button.active {
-    background-color: #295F98;
-    color: white;
-}
-
 /* scroll */
 ::-webkit-scrollbar {
     width: 8px;
