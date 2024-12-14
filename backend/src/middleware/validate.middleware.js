@@ -3,6 +3,7 @@ import Joi from 'joi';
 import { handlerErrorRes } from '../service/handleError.service';
 
 class ValidateMiddleware {
+    //url
     async checkUrl(req, res, next) {
         res.status(StatusCodes.NOT_FOUND).json({
             success: false,
@@ -74,7 +75,7 @@ class ValidateMiddleware {
         try {
             const validateInput = Joi.object({
                 Email: Joi.string()
-                        .email({ minDomainSegments: 2 })
+                        .email({ minDomainSegments: 2 }) //SQL INJECTION IF BE COMMENTED
                         .trim()
                         .required(),
 
