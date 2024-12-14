@@ -1,7 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 import './ProductDisplay.css';
-import star_dull_icon from '../assets/star_dull_icon.png';
-import star_icon from '../assets/star_icon.png';
 import { ShopContext } from '../../Context/ShopContext';
 
 const ProductDisplay = (props) => {
@@ -80,11 +78,6 @@ const ProductDisplay = (props) => {
             <div className='productDisplay-right'>
                 <h1>{product.ProductName}</h1>
                 <div className='productDisplay-right-starts'>
-                    {/* <img src={star_icon} alt='' />
-                    <img src={star_icon} alt='' />
-                    <img src={star_icon} alt='' />
-                    <img src={star_icon} alt='' />
-                    <img src={star_dull_icon} alt='' /> */}
                     <div className='review-star'>
                         {'★'.repeat(averageRating)}
                         {'☆'.repeat(5 - averageRating)}

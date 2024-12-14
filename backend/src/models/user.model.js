@@ -4,17 +4,17 @@ import rbacModel from './rbac.model';
 import { Role } from '../types/rbac.object';
 
 class UserModel {
-    //sql injection
-    async getDetailUserError(loginInfo){
+    //SQL INJECTION
+    async getUserError(username, password){
         return errorHandlerFunc(async () => {
             const connection = await pool.getConnection();
-            const query = `SELECT * FROM user WHERE Email = '${loginInfo.Email}' AND Password = '${loginInfo.Password}';`;
+            const query = `SELECT * FROM user WHERE Email = '${username}' AND Password = '${password}';`;
             const [rows] = await connection.query(query);
             connection.release();
-            return rows;
+            return rows[0];
         });
     }
-    //sql injection
+    //SQL INJECTION
 
     async getUserById(userId){
         return errorHandlerFunc(async () => {
