@@ -1,23 +1,51 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './Popular.css';
-import data_product from '../assets/data';
+// import data_product from '../assets/data';
 import Item from '../Item/Item';
+import { errorToast } from '../Notification/Notification';
 
 const Popular = () => {
+    const [popularProducts, setPopularProducts] = useState([]);
+    const fetchNewCollection = async () => {
+        try {
+            const response = await fetch('http://localhost:4000/product/popular', {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                }
+            })
+    
+            const data = await response.json();
+            
+            if (data.success) {
+                setPopularProducts(data.data);
+            } else {
+                errorToast(data.message);
+            }
+        } catch (error) {
+            errorToast(error.message);
+        }
+    };
+
+    useEffect(() => {
+        fetchNewCollection();
+    }, []);
+
     return (
         <div className='popular'>
             <h1>POPULAR IN WOMEN</h1>
             <hr />
             <div className="popular-item">
-                {data_product.map((item) => {
+                {popularProducts.map((item) => {
                     return (
                         <Item 
-                            key={item.id}  // Sử dụng item.id làm key
-                            id={item.id} 
-                            name={item.name} 
-                            image={item.image} 
-                            new_price={item.new_price}
-                            old_price={item.old_price}
+                            key={item.ProductId}  // Using item.id as the key
+                            id={item.ProductId} 
+                            name={item.ProductName} 
+                            image={item.ImageUrl} 
+                            price={item.Price}
+                            quantity={item.Quantity}
                         />
                     );
                 })}

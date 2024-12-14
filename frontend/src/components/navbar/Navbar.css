@@ -2,6 +2,10 @@
     font-family: 'Poppins';
 }
 
+ul{
+    padding: 0;
+}
+
 .navbar{
     display: flex;
     justify-content: space-around;
@@ -10,6 +14,7 @@
     position: relative;
     z-index: 1000; /* Đảm bảo Navbar luôn trên cùng */
     width: 100%;
+    gap: 20px;
 }
 
 .nav-logo{
@@ -52,13 +57,26 @@
     background-color: #B8001F;
 }
 
-.nav-login-cart{
+.nav-name-login-cart{
     display: flex;
     align-items: center;
     gap: 45px;
 }
 
-.nav-login-cart button{
+.nav-name-login{
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.nav-name{
+    font-size: 20px;
+    font-weight: 500;
+    color: #626262;
+    cursor: pointer;
+}
+
+.nav-name-login-cart button{
     width: 150px;
     height: 58px;
     border: 1px solid #7a7a7a;
@@ -70,7 +88,7 @@
     cursor: pointer;
 }
 
-.nav-login-cart button:active{
+.nav-name-login-cart button:active{
     background-color: #EEEDEB;
 }
 

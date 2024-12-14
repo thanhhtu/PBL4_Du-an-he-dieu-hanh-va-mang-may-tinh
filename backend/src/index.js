@@ -6,6 +6,7 @@ import errorHandler from './middleware/handleError.middleware.js';
 import validateMiddleware from './middleware/validate.middleware.js';
 
 const app = express();
+
 app.use(express.urlencoded());
 app.use(express.json());
 app.use(cors());

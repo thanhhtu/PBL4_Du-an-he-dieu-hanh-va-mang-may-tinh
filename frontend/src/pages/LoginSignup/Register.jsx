@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import './LoginSignup.css'
+import './loginRegister.css'
 
 const Register = () => {
     const [formData, setFormData] = useState({
@@ -41,10 +41,10 @@ const Register = () => {
     };
 
     return (
-        <div className='loginsignup'>
-            <div className="loginsignup-container">
+        <div className='loginRegister'>
+            <div className="loginRegister-container">
                 <h1>REGISTER</h1>
-                <div className="loginsignup-fields">
+                <div className="loginRegister-fields">
                     <input name='Email' value={formData.Email} onChange={changeHandler}  type="email" placeholder='Email Address' />
                     <input name='Password' value={formData.Password} onChange={changeHandler}  type="password" placeholder='Password' />
                     <input name='ConfirmPassword' value={formData.ConfirmPassword} onChange={changeHandler}  type="password" placeholder='Confirm Password' />
@@ -54,14 +54,14 @@ const Register = () => {
                 
                 <button onClick={() => register()}>Continue</button>
                 
-                <p className="loginsignup-login">
+                <p className="loginRegister-login">
                     Already have an account? 
                     <Link to={'/login'} style={{textDecoration: "none"}}>
                         <span> Login here</span> 
                     </Link>
                 </p> 
                 
-                <div className="loginsignup-agree">
+                <div className="loginRegister-agree">
                     <input type="checkbox" name= '' id='' />
                     <p>By continuing, I agree to the terms of use & privacy policy</p>
                 </div>

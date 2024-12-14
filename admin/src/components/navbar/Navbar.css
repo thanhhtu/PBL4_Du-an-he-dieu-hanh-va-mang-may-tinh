@@ -16,6 +16,31 @@
     width: 75px;
 }
 
+.nav-name-login{
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    font-size: 20px;
+    font-weight: 500;
+    color: #626262;
+}
+
+.nav-name-login button{
+    width: 150px;
+    height: 58px;
+    border: 1px solid #7a7a7a;
+    border-radius: 75px;
+    color: #626262;
+    font-size: 23px;
+    font-weight: 500;
+    background-color: white;
+    cursor: pointer;
+}
+
+.nav-name-login button:active{
+    background-color: #EEEDEB;
+}
+
 @media(max-width: 800px){
     .navbar{
         padding: 15px 30px;

@@ -1,7 +1,5 @@
 import userIdentityService from '../service/authentication.service'
-import usersModel from '../models/users.model';
 import { StatusCodes } from 'http-status-codes';
-import { Request, Response, NextFunction } from 'express';
 import { handlerErrorRes } from '../service/handleError.service';
 import CustomError from '../service/customError.service';
 
@@ -16,10 +14,9 @@ class VerifyMiddleware {
             token = token.split(' ')[1];
             req.user = await userIdentityService.decodeToken(token);
             
-            let userID = Number(req.user.id);
-            let storedToken = await usersModel.getAccessTokenByUserID(userID);
-            if (token != storedToken) {
-                throw new CustomError(StatusCodes.UNAUTHORIZED, 'Invalid token');
+            let userId = Number(req.user.id);
+            if (!userId) {
+                throw new CustomError(StatusCodes.UNAUTHORIZED, 'Unauthorized');
             }
 
             next();

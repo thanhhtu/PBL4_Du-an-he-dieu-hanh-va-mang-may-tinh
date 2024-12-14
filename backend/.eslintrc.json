@@ -14,7 +14,7 @@
         "project": "./tsconfig.json"
     },
     "rules": {
-        "prettier/prettier": "off",
+        "prettier/prettier": "error",
         "quotes": ["error", "single"],
         "semi": ["error", "always"],
         "linebreak-style": 0,

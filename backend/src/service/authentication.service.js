@@ -1,11 +1,11 @@
 import jwt from 'jsonwebtoken';
 import 'dotenv/config';
 
-class UserIdentityService {
-    async encodeToken(userId) {
+class IdentityService {
+    async encodeToken(id) {
         return jwt.sign(
             { 
-                id: userId
+                id: id
             }, 
             process.env.JWT_SECRET, 
             {
@@ -20,4 +20,4 @@ class UserIdentityService {
     }
 }
 
-export default new UserIdentityService()
+export default new IdentityService()

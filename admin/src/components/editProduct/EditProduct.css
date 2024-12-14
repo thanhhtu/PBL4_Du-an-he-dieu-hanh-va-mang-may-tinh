@@ -1,0 +1,136 @@
+.edit-product {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.edit-product-content {
+    background: white;
+    border-radius: 10px;
+    width: 500px;
+    max-width: 90%;
+    max-height: 90%;
+    overflow-y: auto;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.edit-product-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.edit-product-header > h2{
+    width: 100%;
+    text-align: center;
+    padding: 20px 0;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.edit-product-body {
+    padding: 15px 50px;
+}
+
+
+.editProduct-itemField{
+    padding: 10px 0;
+    width: 100%;
+    color: #7b7b7b;
+    font-size: 16px;
+}
+
+.editProduct-itemField input, .editProduct-itemField textarea{
+    box-sizing: border-box;
+    width: 100%;
+    height: 50px;
+    border-radius: 4px;
+    padding-left: 15px;
+    border: 1px solid #c3c3c3;
+    margin-top: 5px;
+    outline: none;
+    color: #7b7b7b;
+    font-family: 'Poppins';
+    font-size: 14px;
+}
+
+.editProduct-itemField textarea{
+    outline: none;
+    padding: 10px 15px;
+    height: 80px;
+}
+
+.editProduct-itemField input:focus, .editProduct-itemField textarea:focus{
+    border: 2px solid #79AC78;
+}
+
+.editProduct-img{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.editProduct-thumbnail-img{
+    height: 200px;
+    width: 200px;
+    border-radius: 10px;
+    object-fit: contain;
+    margin: 20px 0;
+    cursor: pointer;
+}
+
+.edit-file-input > input{
+    height: 200px;
+    width: 200px;
+}
+
+.edit-product-footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 30px 50px;
+    border-top: 1px solid #eee;
+}
+
+.edit-product-footer button {
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.update-btn {
+    background-color: #79AC78;
+    transition: all 0.2s;
+}
+
+.update-btn:hover {
+    background-color: #5f8a5e;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.cancel-btn {
+    background-color: #e53636;
+    transition: all 0.2s;
+}
+
+.cancel-btn:hover {
+    background-color: #c22c2c;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}

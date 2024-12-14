@@ -5,14 +5,14 @@
     gap: 10px;
     justify-content: center;
     margin-bottom: 100px;
-    text-align: center; 
+    /* text-align: center;  */
 }
 
 .new-collections h1 {
     color: #171717;
     font-size: 40px;
     font-weight: 600;
-    margin: 0; 
+    /* margin: 0;  */
 }
 
 .new-collections hr {
@@ -27,6 +27,6 @@
 .collections{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;   
-    margin-top: 50px ; 
+    margin: 50px 80px; 
     gap: 30px;
 }

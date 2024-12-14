@@ -5,20 +5,34 @@
     gap: 20px;
     width: 100%;
     max-width: 300px;
-    height: 100vh;
     background-color: white;
 }
 
-.sidebar-item{
+.sidebar-item > a{
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0px 30px;
-    padding: 5px 10px;
+    padding: 10px;
     border-radius: 6px;
     background-color: #f6f6f6;
     gap: 20px;
     cursor: pointer;
+}
+
+.sidebar-item :active{
+    background-color: #98b1cd;
+    transition: all 0.15s;
+}
+
+.sidebar-item p{
+    color: rgb(54, 54, 54);
+    pointer-events: none;
+}
+
+.sidebar-item :active p {
+    color: white;
+    transition: all 0.15s;
 }
 
 @media(max-width: 800px){
@@ -30,8 +44,8 @@
         height: auto;
         justify-content: center;
     }
-
-    .sidebar-item{
+  
+    .sidebar-item > a{
         margin: 0 10px;
     }
 }
