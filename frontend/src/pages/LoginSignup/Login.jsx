@@ -53,38 +53,38 @@ const Login = () => {
 
     return (
         <form
-            className="loginRegister"
+            className='loginRegister'
             onSubmit={(e) => {
                 e.preventDefault() //prevent default submit
                 login()
             }}
         >
-            <div className="loginRegister-container">
+            <div className='loginRegister-container'>
                 <h1>LOGIN</h1>
-                <div className="loginRegister-fields">
+                <div className='loginRegister-fields'>
                     <input 
                         name='Email' 
                         value={formData.Email} 
                         onChange={changeHandler}  
-                        type="email" 
+                        type='email' 
                         placeholder='Email Address' 
                     />
-                    <div className="password-wrapper">
+                    <div className='password-wrapper'>
                         <input
-                            name="Password"
+                            name='Password'
                             value={formData.Password}
                             onChange={changeHandler}
                             type={showPassword ? 'text' : 'password'}
-                            placeholder="Password"
+                            placeholder='Password'
                         />
                         <span
-                            className="toggle-password"
+                            className='toggle-password'
                             onClick={showPasswordHandler}
                         >
                             {showPassword ? (
-                                <i className="fa-regular fa-eye" />
+                                <i className='fa-regular fa-eye' />
                             ) : (
-                                <i className="fa-regular fa-eye-slash" />
+                                <i className='fa-regular fa-eye-slash' />
                             )}
                         </span>
                     </div>
@@ -92,15 +92,15 @@ const Login = () => {
                 
                 <button type='submit'>Continue</button>
                 
-                <p className="loginRegister-register">
+                <p className='loginRegister-register'>
                     Create an account? 
-                    <Link to={'/register'} style={{textDecoration: "none"}}>
+                    <Link to={'/register'} style={{textDecoration: 'none'}}>
                         <span> Click here</span> 
                     </Link>
                 </p> 
                 
-                <div className="loginRegister-agree">
-                    <input type="checkbox" name= '' id='' />
+                <div className='loginRegister-agree'>
+                    <input type='checkbox' name= '' id='' />
                     <p>By continuing, I agree to the terms of use & privacy policy</p>
                 </div>
             </div>

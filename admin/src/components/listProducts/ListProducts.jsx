@@ -84,6 +84,12 @@ const ListProducts = () => {
 
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+    //Format Price
+    const formattedPrice = (price) => {
+        const newPrice = price;
+        return new Intl.NumberFormat('vi-VN').format(newPrice);
+    }
+
     return (
         <div className='list-product'>
             <h1>PRODUCT LIST</h1>
@@ -109,7 +115,7 @@ const ListProducts = () => {
                                 className='listProduct-product-icon'
                             />
                             <p>{product.ProductName}</p>
-                            <p>{product.Price} VND</p>
+                            <p>{formattedPrice(product.Price)} VND</p>
                             <p>{product.Quantity}</p>
                             <p onClick={() => openEditPopup(product)} className='listProduct-icon update-icon'>
                                 <i className='fa-regular fa-pen-to-square' />

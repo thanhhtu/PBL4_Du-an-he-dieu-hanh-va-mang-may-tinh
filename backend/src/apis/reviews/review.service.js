@@ -4,6 +4,7 @@ import CustomError from '../../service/customError.service';
 import { StatusCodes } from 'http-status-codes';
 import userModel from '../../models/user.model';
 import productModel from '../../models/product.model';
+import sanitizeService, { purifyString } from '../../service/sanitize.service';
 
 class ReviewService{
     async reviewInfo(review){
@@ -61,7 +62,14 @@ class ReviewService{
                 throw new CustomError(StatusCodes.NOT_FOUND, 'Product not found');
             }
 
+            const purifyContent = await sanitizeService.purifyString(Content);
+            const result = await reviewModel.addReview(userId, productId, Rating, purifyContent);
+
+            /*
+            //XSS
             const result = await reviewModel.addReview(userId, productId, Rating, Content);
+            //XSS
+            */
             
             return result;
         });
@@ -74,7 +82,14 @@ class ReviewService{
                 throw new CustomError(StatusCodes.NOT_FOUND, 'Permission denied. Unable to edit this review');
             }
 
+            const purifyContent = await sanitizeService.purifyString(Content);
+            const result = await reviewModel.updateReview(reviewId, Rating, purifyContent);
+
+            /*
+            //XSS
             const result = await reviewModel.updateReview(reviewId, Rating, Content);
+            //XSS
+            */
             
             return result;
         });

@@ -5,13 +5,14 @@ import { handlerErrorRes } from '../../service/handleError.service';
 class AuthController {
     async register(req, res, next){
         try{
-            const newUser = req.body;
+            const newUserInfo = req.body;
 
-            const token = await authService.register(newUser);
+            const {token, name, roles} = await authService.register(newUserInfo);
             res.status(StatusCodes.OK).json({
                 success: true,
                 message: 'Register successfully',
-                token: token
+                token: token,
+                name: name
             });
         }catch(error){
             handlerErrorRes(error, res);
