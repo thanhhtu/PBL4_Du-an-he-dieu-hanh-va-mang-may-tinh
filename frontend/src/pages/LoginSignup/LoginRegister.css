@@ -43,7 +43,7 @@
 }
 
 .loginRegister-fields input:focus {
-    border: 1px solid #79AC78;
+    border: 2px solid #79AC78;
 }
 
 /* disable default password eye */
@@ -107,3 +107,7 @@ input[type="password"]::-webkit-textfield-decoration-container {
     font-weight: 500;
 }
 
+.loginRegister-fields .error-confirm-password,
+.loginRegister-fields .error-confirm-password:focus {
+    border: 2px solid #ff4141;
+}

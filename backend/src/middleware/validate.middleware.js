@@ -149,7 +149,10 @@ class ValidateMiddleware {
                             .max(5)
                             .required(),
 
-                Content: Joi.string().trim().required(),
+                Content: Joi.string()
+                            .max(500)
+                            .trim()
+                            .required(),
             });
 
             await validateInput.validateAsync(req.body, { abortEarly: false });
