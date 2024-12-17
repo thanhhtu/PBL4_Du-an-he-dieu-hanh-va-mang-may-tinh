@@ -17,6 +17,12 @@ class HashService {
     async checkPassword(plainText, hash){
         return await bcrypt.compare(plainText, hash);
     }
+
+    async setPasswordResetToken(){
+        const resetToken = await bcrypt.genSalt(10);
+        const resetExpiration = new Date(Date.now() + 1 * 60 * 1000); //1 min from the time sending req
+        return { resetToken, resetExpiration };
+    }
 }
 
 export default new HashService();

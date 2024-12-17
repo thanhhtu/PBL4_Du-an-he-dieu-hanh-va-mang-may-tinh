@@ -10,6 +10,8 @@ import Footer from './components/Footer/Footer';
 import men_banner from './components/assets/banner_mens.png';
 import Login from './pages/LoginSignup/Login';
 import Register from './pages/LoginSignup/Register';
+import ForgetPassword from './pages/LoginSignup/ForgetPassword';
+import ResetPassword from './pages/LoginSignup/ResetPassword';
 import authService from './services/auth.service';
 import { ReusableToastContainer } from './components/Notification/Notification';
 
@@ -36,6 +38,8 @@ function App() {
                     <Route path='/cart' element={<Cart/>}/>
                     <Route path='/login' element={<Login/>}/>
                     <Route path='/register' element={<Register/>}/>
+                    <Route path='/forget-password' element={<ForgetPassword/>}/>
+                    <Route path='/reset-password' element={<ResetPassword/>}/>
                 </Routes>
                 <Footer/>
             </BrowserRouter>

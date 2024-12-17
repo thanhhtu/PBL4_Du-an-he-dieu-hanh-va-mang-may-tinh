@@ -3,8 +3,9 @@ import hashService from '../../service/hash.service';
 import CustomError from '../../service/customError.service';
 import { StatusCodes } from 'http-status-codes';
 import userIdentityService from '../../service/authentication.service';
-import { errorHandlerFunc, errorInfo } from '../../service/handleError.service';
+import { errorHandlerFunc } from '../../service/handleError.service';
 import rbacModel from '../../models/rbac.model';
+import mailService from '../../service/mail.service';
 
 class AuthService {
     async register(newUserInfo) {
@@ -23,7 +24,7 @@ class AuthService {
             const name = newUser.FullName;
 
             return { token, name };
-        })
+        });
     }
 
     async login(loginInfo) {
@@ -43,7 +44,7 @@ class AuthService {
             const roles = await rbacModel.getRoleNameByUserId(userId);
 
             return { token, name, roles };
-        })
+        });
     }
 
     //SQL INJECTION
@@ -57,9 +58,54 @@ class AuthService {
             const roles = await rbacModel.getRoleNameByUserId(userId);
 
             return { token, name, roles };
-        })
+        });
     }
     //SQL INJECTION
+
+    async forgetPassword(email) {
+        return errorHandlerFunc(async () => {
+            const user = await userModel.getUserByEmail(email);
+            if(!user){
+                throw new CustomError(StatusCodes.NOT_FOUND, 'User not found');
+            }
+
+            const { resetToken, resetExpiration } = await hashService.setPasswordResetToken();
+            const result = await userModel.setPasswordResetToken(resetToken, resetExpiration, email);
+
+            if(!result){
+                throw new CustomError(StatusCodes.BAD_REQUEST, 'Unable to send the password reset email');
+            }
+            
+            mailService.sendEmail({
+                emailFrom: 'thanhthanhvava2004@gmail.com',
+                emailTo: email,
+                emailSubject: 'TTSHOP RESET PASSWORD',
+                token: resetToken,
+                user: user.FullName,
+                productName: 'TTShop',
+                productEmail: 'ttshop-support.example.com'
+            });
+            return true;
+        })
+    }
+
+    async resetPassword(email, resetToken, newPassword) {
+        return errorHandlerFunc(async () => {
+            const user = await userModel.checkTokenPassword(email, resetToken);
+            if(!user){
+                throw new CustomError(StatusCodes.BAD_REQUEST, 'Invalid token');
+            }
+
+            const hashObj = await hashService.hashPassword(newPassword);
+            const result = await userModel.resetPassword(hashObj.hashedPassword, new Date(), email);
+
+            if(!result){
+                throw new CustomError(StatusCodes.BAD_REQUEST, 'Reset password fail');
+            }
+
+            return true;
+        });
+    }
 }
 
 export default new AuthService();

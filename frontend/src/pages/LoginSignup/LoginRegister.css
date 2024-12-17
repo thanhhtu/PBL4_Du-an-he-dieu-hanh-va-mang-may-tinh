@@ -100,14 +100,77 @@ input[type="password"]::-webkit-textfield-decoration-container {
 .loginRegister-agree {
     display: flex;
     align-items: center;
-    margin-top: 25px;
-    gap: 15px;
+    margin-top: 13px;
+    gap: 13px;
     color: #5c5c5c;
     font-size: 16px;
     font-weight: 500;
 }
 
-.loginRegister-fields .error-confirm-password,
-.loginRegister-fields .error-confirm-password:focus {
+.loginRegister-agree i {
+    color: rgb(0, 182, 0);
+}
+
+.loginRegister-fields .error-info,
+.loginRegister-fields .error-info:focus {
     border: 2px solid #ff4141;
+}
+
+.error-message {
+    font-size: 12px;
+    color: #ff4141
+}
+
+.password-wrapper-box{
+    position: relative;
+}
+
+.forget-password{
+    color: #28a745;
+    font-size: 15px;
+    font-weight: 500;
+    text-align: right;
+    padding-top: 5px;
+    padding-right: 5px;
+    cursor: pointer;
+}
+
+.forget-password:hover{
+    color: #218838;
+}
+
+.disabled-button {
+    opacity: 0.5;
+    cursor: not-allowed!important;
+}
+
+.resetPassword-header {
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.resetPassword-header i {
+    font-size: 30px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.resetPassword-header h1 {
+    text-align: center;
+}
+
+.resetPassword-container button{
+    margin-bottom: 25px;
+}
+
+.resetPassword-fields{
+    display: block;
+}
+
+.otp{
+    font-size: 16px;
+    color: #5c5c5c;
+    padding-bottom: 8px;
 }

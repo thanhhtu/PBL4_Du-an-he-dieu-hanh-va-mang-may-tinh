@@ -91,6 +91,41 @@ class UserModel {
             return result[0].affectedRows;
         });
     }
+
+    async setPasswordResetToken(resetToken, resetExpiration, email){
+        return errorHandlerFunc(async () => {
+            const connection = await pool.getConnection();
+            
+            const query = `UPDATE user SET PasswordResetToken = ?, PasswordResetExpiration = ? WHERE Email = ?`;
+            const value = [resetToken, resetExpiration, email];
+            const results = await connection.query(query, value);
+            
+            connection.release();
+            return results[0].affectedRows;
+        });
+    }
+
+    async checkTokenPassword(email, resetToken){
+        return errorHandlerFunc(async () => {
+            const connection = await pool.getConnection();
+            const query = `SELECT * FROM user WHERE Email = ? AND PasswordResetToken = ? AND PasswordResetExpiration >= ?`;
+            const value = [email, resetToken, new Date(Date.now())];
+            const [rows] = await connection.query(query, value);
+            connection.release();
+            return rows[0];
+        });
+    }
+
+    async resetPassword(newPassword, lastResetDate, email){
+        return errorHandlerFunc(async () => {
+            const connection = await pool.getConnection();
+            const query = `UPDATE user SET Password = ?, PasswordResetToken = NULL, PasswordResetExpiration = NULL, PasswordLastResetDate = ? WHERE Email = ?`;
+            const value = [newPassword, lastResetDate, email];
+            const results = await connection.query(query, value);
+            connection.release();
+            return results[0].affectedRows;
+        });
+    }
 }
 
 export default new UserModel()

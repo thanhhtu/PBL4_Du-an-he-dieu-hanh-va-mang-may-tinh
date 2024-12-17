@@ -13,16 +13,42 @@ const Login = () => {
     };
 
     //Login
+    const [emailError, setEmailError] = useState('');
+    const isValidEmail = (email) => {
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return regex.test(email);
+    };
+
     const [formData, setFormData] = useState({
         Email: '',
         Password: '',
     });
 
     const changeHandler = (e) => {
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value,
-        });
+        const { name, value } = e.target;
+        
+        setFormData(prevState => ({
+            ...prevState, 
+            [name]: value
+        }));
+
+
+        //check email
+        if (name === 'Email') {
+            if (!isValidEmail(value)) {
+                setEmailError('Invalid email address');
+            } else {
+                setEmailError('');
+            }
+        }
+    };
+
+    const isFormValid = () => {
+        return (
+            formData.Email.trim() !== '' && 
+            isValidEmail(formData.Email) &&
+            formData.Password.trim() !== ''
+        );
     };
 
     const login = async () => {
@@ -62,35 +88,52 @@ const Login = () => {
             <div className='loginRegister-container'>
                 <h1>LOGIN</h1>
                 <div className='loginRegister-fields'>
-                    <input 
-                        name='Email' 
-                        value={formData.Email} 
-                        onChange={changeHandler}  
-                        type='email' 
-                        placeholder='Email Address' 
-                    />
-                    <div className='password-wrapper'>
-                        <input
-                            name='Password'
-                            value={formData.Password}
-                            onChange={changeHandler}
-                            type={showPassword ? 'text' : 'password'}
-                            placeholder='Password'
+                    <div>
+                        <input 
+                            className={emailError && 'error-info'}
+                            name='Email' 
+                            value={formData.Email} 
+                            onChange={changeHandler}  
+                            type='email' 
+                            placeholder='Email Address' 
                         />
-                        <span
-                            className='toggle-password'
-                            onClick={showPasswordHandler}
-                        >
-                            {showPassword ? (
-                                <i className='fa-regular fa-eye' />
-                            ) : (
-                                <i className='fa-regular fa-eye-slash' />
-                            )}
-                        </span>
+                        {emailError && <div className='error-message'>The email address is invalid</div>}
+                    </div>
+                    
+                    <div className='password-wrapper'>
+                        <div className='password-wrapper-box'>
+                            <input
+                                name='Password'
+                                value={formData.Password}
+                                onChange={changeHandler}
+                                type={showPassword ? 'text' : 'password'}
+                                placeholder='Password'
+                            />
+                            <span
+                                className='toggle-password'
+                                onClick={showPasswordHandler}
+                            >
+                                {showPassword ? (
+                                    <i className='fa-regular fa-eye' />
+                                ) : (
+                                    <i className='fa-regular fa-eye-slash' />
+                                )}
+                            </span>
+                        </div>
+
+                        <Link to={'/forget-password'} style={{textDecoration: 'none'}}>
+                            <div className='forget-password'>Forget Password</div>
+                        </Link>
                     </div>
                 </div>
                 
-                <button type='submit'>Continue</button>
+                <button 
+                    onClick={() => register()}
+                    disabled={!isFormValid()} 
+                    className={!isFormValid() ? 'disabled-button' : ''} 
+                >
+                    Continue
+                </button>
                 
                 <p className='loginRegister-register'>
                     Create an account? 
@@ -98,11 +141,6 @@ const Login = () => {
                         <span> Click here</span> 
                     </Link>
                 </p> 
-                
-                <div className='loginRegister-agree'>
-                    <input type='checkbox' name= '' id='' />
-                    <p>By continuing, I agree to the terms of use & privacy policy</p>
-                </div>
             </div>
         </form>
     );
