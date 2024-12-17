@@ -18,7 +18,23 @@ const Register = () => {
     };
 
     //Register
+    const [emailError, setEmailError] = useState('');
+    const isValidEmail = (email) => {
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return regex.test(email);
+    };
+    const [fullNameError, setFullNameError] = useState('');
+    const isValidFullName = (fullName) => {
+        const regex = /^[A-Za-zÀ-ÿ\s]+$/ ; 
+        return regex.test(fullName);
+    };
+    const [phoneNumberError, setPhoneNumberError] = useState('');
+    const isValidPhoneNumber = (phoneNumber) => {
+        const regex = /^(0|\+84)([0-9]{9,10})$/; //start by 0 or +84 
+        return regex.test(phoneNumber);
+    };
     const [passwordError, setPasswordError] = useState('');
+
     const [formData, setFormData] = useState({
         Email: '',
         Password: '',
@@ -35,9 +51,37 @@ const Register = () => {
             [name]: value
         }));
 
+        //check email
+        if (name === 'Email') {
+            if (!isValidEmail(value)) {
+                setEmailError('Invalid email address');
+            } else {
+                setEmailError('');
+            }
+        }
+
+        //check full name
+        if (name === 'FullName') {
+            if (!isValidFullName(value)) {
+                setFullNameError('Invalid full name address');
+            } else {
+                setFullNameError('');
+            }
+        }
+
+        //check phone number
+        if (name === 'PhoneNumber') {
+            if (!isValidPhoneNumber(value)) {
+                setPhoneNumberError('Invalid phone number address');
+            } else {
+                setPhoneNumberError('');
+            }
+        }
+
+        //check password
         if (name === 'ConfirmPassword') {
             if (formData.Password !== value) {
-                setPasswordError('Mật khẩu xác nhận không khớp');
+                setPasswordError('Passwords not match');
             } else {
                 setPasswordError('');
             }
@@ -45,11 +89,25 @@ const Register = () => {
 
         if (name === 'Password') {
             if (formData.ConfirmPassword && formData.ConfirmPassword !== value) {
-                setPasswordError('Mật khẩu xác nhận không khớp');
+                setPasswordError('Passwords not match');
             } else {
                 setPasswordError('');
             }
         }
+    };
+
+    const isFormValid = () => {
+        return (
+            formData.Email.trim() !== '' && 
+            isValidEmail(formData.Email) &&
+            formData.FullName.trim() !== '' && 
+            isValidFullName(formData.FullName) &&
+            formData.PhoneNumber.trim() !== '' && 
+            isValidPhoneNumber(formData.PhoneNumber) &&
+            formData.Password.trim() !== '' &&
+            formData.ConfirmPassword.trim() !== '' &&
+            formData.Password === formData.ConfirmPassword
+        );
     };
 
     const register = async () => {
@@ -84,13 +142,41 @@ const Register = () => {
             <div className='loginRegister-container'>
                 <h1>REGISTER</h1>
                 <div className='loginRegister-fields'>
-                    <input 
-                        name='Email' 
-                        value={formData.Email} 
-                        onChange={changeHandler}  
-                        type='email' 
-                        placeholder='Email Address' 
-                    />
+                    <div>
+                        <input 
+                            className={emailError && 'error-info'}
+                            name='Email' 
+                            value={formData.Email} 
+                            onChange={changeHandler}  
+                            type='email' 
+                            placeholder='Email Address' 
+                        />
+                        {emailError && <div className='error-message'>The email address is invalid</div>}
+                    </div>
+
+                    <div>
+                        <input
+                            className={fullNameError && 'error-info'}
+                            name='FullName' 
+                            value={formData.FullName} 
+                            onChange={changeHandler}  
+                            type='text' 
+                            placeholder='Full Number' 
+                        />
+                        {fullNameError && <div className='error-message'>The full name is invalid</div>}
+                    </div>
+                    
+                    <div>
+                        <input 
+                            className={phoneNumberError && 'error-info'}
+                            name='PhoneNumber' 
+                            value={formData.PhoneNumber} 
+                            onChange={changeHandler}  
+                            type='text' 
+                            placeholder='Phone Number' 
+                        />  
+                        {phoneNumberError && <div className='error-message'>The phone number is invalid</div>}
+                    </div>
 
                     <div className='password-wrapper'>
                         <input
@@ -111,47 +197,40 @@ const Register = () => {
                             )}
                         </span>
                     </div>
-                
-                    <div className='password-wrapper'>
-                        <input
-                            className={passwordError ? 'error-confirm-password' : ''}
-                            name='ConfirmPassword'
-                            value={formData.ConfirmPassword}
-                            onChange={changeHandler}
-                            type={showConfirmPassword ? 'text' : 'password'}
-                            placeholder='Confirm Password'
-                            required
-                        />
-                        <span
-                            className='toggle-password'
-                            onClick={showConfirmPasswordHandler}
-                        >
-                            {showConfirmPassword ? (
-                                <i className='fa-regular fa-eye' />
-                            ) : (
-                                <i className='fa-regular fa-eye-slash' />
-                            )}
-                        </span>
+
+                    <div>
+                        <div className='password-wrapper'>
+                            <input
+                                className={passwordError && 'error-info'}
+                                name='ConfirmPassword'
+                                value={formData.ConfirmPassword}
+                                onChange={changeHandler}
+                                type={showConfirmPassword ? 'text' : 'password'}
+                                placeholder='Confirm Password'
+                                required
+                            />
+                            <span
+                                className='toggle-password'
+                                onClick={showConfirmPasswordHandler}
+                            >
+                                {showConfirmPassword ? (
+                                    <i className='fa-regular fa-eye' />
+                                ) : (
+                                    <i className='fa-regular fa-eye-slash' />
+                                )}
+                            </span>
+                        </div>
+                        {passwordError && <div className='error-message'>The confirm password does not match</div>}
                     </div>
-                 
-                    <input 
-                        name='FullName' 
-                        value={formData.FullName} 
-                        onChange={changeHandler}  
-                        type='text' 
-                        placeholder='Full Number' 
-                    />
-                    
-                    <input 
-                        name='PhoneNumber' 
-                        value={formData.PhoneNumber} 
-                        onChange={changeHandler}  
-                        type='text' 
-                        placeholder='Phone Number' 
-                    />
                 </div>
                 
-                <button onClick={() => register()}>Continue</button>
+                <button 
+                    onClick={() => register()}
+                    disabled={!isFormValid()} 
+                    className={!isFormValid() ? 'disabled-button' : ''} 
+                >
+                    Continue
+                </button>
                 
                 <p className='loginRegister-login'>
                     Already have an account? 
@@ -161,8 +240,8 @@ const Register = () => {
                 </p> 
                 
                 <div className='loginRegister-agree'>
-                    <input type='checkbox' name= '' id='' />
-                    <p>By continuing, I agree to the terms of use & privacy policy</p>
+                    <i className='fa-solid fa-check' />
+                    <p>By continuing, you agree to terms of Service and Privacy Policy</p>
                 </div>
             </div>
         </div>

@@ -40,8 +40,8 @@ class AuthService {
 
         setInterval(checkTokenExpiration, Number(import.meta.env.VITE_EXPIRED_TOKEN));
 
-        window.addEventListener('focus', checkTokenExpiration)
-        window.addEventListener('online', checkTokenExpiration)
+        // window.addEventListener('focus', checkTokenExpiration)
+        // window.addEventListener('online', checkTokenExpiration)
     }
 }
 

@@ -60,7 +60,7 @@ class ValidateMiddleware {
                             .required(),
 
                 PhoneNumber: Joi.string()
-                                .pattern(new RegExp(/^\+?[0-9]{10,15}$/))
+                                .pattern(new RegExp(/^(0|\+84)([0-9]{9,10})$/)) 
                                 .required(),
             }).with('Password', 'ConfirmPassword');
 
@@ -81,6 +81,42 @@ class ValidateMiddleware {
 
                 Password: Joi.string().trim().required(),
             });
+
+            await validateInput.validateAsync(req.body, { abortEarly: false });
+            next();
+        } catch (error) {
+            return handlerErrorRes(error, res);
+        }
+    }
+
+    async checkForgetPassword(req, res, next) {
+        try {
+            const validateInput = Joi.object({
+                Email: Joi.string()
+                        .email({ minDomainSegments: 2 }) //SQL INJECTION IF BE COMMENTED
+                        .trim()
+                        .required(),
+            });
+
+            await validateInput.validateAsync(req.body, { abortEarly: false });
+            next();
+        } catch (error) {
+            return handlerErrorRes(error, res);
+        }
+    }
+
+    async checkResetPassword(req, res, next) {
+        try {
+            const validateInput = Joi.object({
+                Email: Joi.string()
+                        .email({ minDomainSegments: 2 }) //SQL INJECTION IF BE COMMENTED
+                        .trim()
+                        .required(),
+
+                PasswordResetToken: Joi.string().trim().required(),
+                NewPassword: Joi.string().trim().required(),
+                ConfirmNewPassword: Joi.ref('NewPassword'),
+            }).with('NewPassword', 'ConfirmNewPassword');
 
             await validateInput.validateAsync(req.body, { abortEarly: false });
             next();
