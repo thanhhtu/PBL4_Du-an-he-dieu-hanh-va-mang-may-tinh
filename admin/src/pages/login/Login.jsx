@@ -43,7 +43,7 @@ const Login = () => {
                 localStorage.setItem('name', resData.name);
                 window.location.replace('/management');
             } else {
-                errorToast('Admin only');
+                errorToast('Wrong email or password'); //only admin
             }
         } else {
             errorToast(resData.message);

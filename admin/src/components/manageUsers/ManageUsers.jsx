@@ -3,6 +3,7 @@ import './ManageUsers.css';
 import authService from '../../services/auth.service';
 import { ReusableToastContainer, errorToast, successToast } from '../notification/Notification';
 import Pagination from '../pagination/Pagination';
+import DeleteConfirmPopup from '../deleteConfirm/DeleteConfirm';
 
 const ManageUsers = () => {
     const [allUsers, setAllUsers] = useState([]);
@@ -37,6 +38,14 @@ const ManageUsers = () => {
     }, []);
 
     //delete user
+    const [isDelConfirmPopupOpen, setIsDelConfirmPopupOpen] = useState(false);
+    const [currentDelProduct, setCurrentDelProduct] = useState(null);
+
+    const openDelConfirmPopup = (productId) => {
+        setCurrentDelProduct(productId);
+        setIsDelConfirmPopupOpen(true);
+    };
+
     const deleteUser = async (userId) => {
         try {
             const token = authService.getExpiredItem('auth-token');
@@ -96,12 +105,21 @@ const ManageUsers = () => {
                             <p>{user.FullName}</p>
                             <p>{user.Email}</p>
                             <p>{user.PhoneNumber}</p>
-                            <div onClick={() => deleteUser(user.Id)} className='manageUser-remove-icon'>
+                            <div onClick={() => openDelConfirmPopup(user.Id)} className='manageUser-remove-icon'>
                                 <i className='fa-solid fa-trash'></i>
                             </div>
                         </div>
                 )})}
             </div>
+
+            {/* Delete confirm product popup */}
+            {isDelConfirmPopupOpen && currentDelProduct && (
+                <DeleteConfirmPopup
+                    itemId={currentDelProduct}
+                    onClose={() => setIsDelConfirmPopupOpen(false)}
+                    onDelete={deleteUser}
+                />
+            )}
 
             <Pagination 
                 currentPage={currentPage} 

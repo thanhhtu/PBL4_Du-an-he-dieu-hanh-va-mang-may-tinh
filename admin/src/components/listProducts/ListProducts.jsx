@@ -4,6 +4,7 @@ import authService from '../../services/auth.service';
 import { ReusableToastContainer, errorToast, successToast } from '../notification/Notification';
 import EditProductPopup from '../editProduct/EditProduct';
 import Pagination from '../pagination/Pagination';
+import DeleteConfirmPopup from '../deleteConfirm/DeleteConfirm';
 
 const ListProducts = () => {
     const [allProducts, setAllProducts] = useState([]);
@@ -47,6 +48,14 @@ const ListProducts = () => {
     };
 
     //Delete product
+    const [isDelConfirmPopupOpen, setIsDelConfirmPopupOpen] = useState(false);
+    const [currentDelProduct, setCurrentDelProduct] = useState(null);
+
+    const openDelConfirmPopup = (productId) => {
+        setCurrentDelProduct(productId);
+        setIsDelConfirmPopupOpen(true);
+    };
+    
     const removeProduct = async (productId) => {
         try {
             const token = authService.getExpiredItem('auth-token');
@@ -120,7 +129,7 @@ const ListProducts = () => {
                             <p onClick={() => openEditPopup(product)} className='listProduct-icon update-icon'>
                                 <i className='fa-regular fa-pen-to-square' />
                             </p>
-                            <p onClick={() => removeProduct(product.ProductId)} className='listProduct-icon delete-icon'>
+                            <p onClick={() => openDelConfirmPopup(product.ProductId)} className='listProduct-icon delete-icon'>
                                 <i className='fa-solid fa-trash' />
                             </p>
                         </div>
@@ -133,6 +142,15 @@ const ListProducts = () => {
                     product={currentEditProduct}
                     onClose={() => setIsEditPopupOpen(false)}
                     fetchInfo={fetchInfo}
+                />
+            )}
+
+            {/* Delete confirm product popup */}
+            {isDelConfirmPopupOpen && currentDelProduct && (
+                <DeleteConfirmPopup
+                    itemId={currentDelProduct}
+                    onClose={() => setIsDelConfirmPopupOpen(false)}
+                    onDelete={removeProduct}
                 />
             )}
 
