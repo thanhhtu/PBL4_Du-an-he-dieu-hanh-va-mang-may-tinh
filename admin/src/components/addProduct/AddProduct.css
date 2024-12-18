@@ -80,6 +80,11 @@
     font-size: 16px;
     font-weight: 500;
     cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.addProduct-btn:hover{
+    background-color: #3d729e!important;
 }
 
 /* scroll */

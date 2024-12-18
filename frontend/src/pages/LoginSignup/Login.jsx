@@ -70,7 +70,7 @@ const Login = () => {
                 localStorage.setItem('name', resData.name);
                 window.location.replace('/');
             } else {
-                errorToast('User only');
+                errorToast('Wrong email or password'); //only user
             }
         }else{
             errorToast(resData.message);
