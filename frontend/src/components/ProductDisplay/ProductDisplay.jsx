@@ -2,8 +2,8 @@ import React, { useContext, useEffect, useState } from 'react';
 import './ProductDisplay.css';
 import { ShopContext } from '../../Context/ShopContext';
 
-const ProductDisplay = (props) => {
-    const {product} = props;
+const ProductDisplay = ({product, reviewsUpdated}) => {
+    // const {product} = props;
     const {addToCart} = useContext(ShopContext);
 
     const formattedPrice = (price) => {
@@ -57,11 +57,27 @@ const ProductDisplay = (props) => {
             errorToast(error.message);
         }
     };
+
     useEffect(() => {
         handleAllReviews();
-    }, []);
-    const sumRating = allReviews.reduce((sum, review) => sum + review.Rating, 0)
-    const averageRating = Math.round(sumRating / allReviews.length); 
+    }, [product.ProductId, reviewsUpdated]);
+
+    const getRatingDisplay = () => {
+        if (allReviews.length === 0) {
+            return <div className='productDisplay-right-stars'>No reviews yet</div>;
+        }
+        const sumRating = allReviews.reduce((sum, review) => sum + review.Rating, 0);
+        const averageRating = Math.round(sumRating / allReviews.length);
+        return (
+            <div className='productDisplay-right-stars'>
+                <div className='review-star'>
+                    {'★'.repeat(averageRating)}
+                    {'☆'.repeat(5 - averageRating)} 
+                </div>       
+                <div>({allReviews.length} reviews)</div>
+            </div>
+        );
+    };
 
     return (
         <div className='productDisplay'>
@@ -77,14 +93,9 @@ const ProductDisplay = (props) => {
             </div>
             <div className='productDisplay-right'>
                 <h1>{product.ProductName}</h1>
-                <div className='productDisplay-right-starts'>
-                    <div className='review-star'>
-                        {'★'.repeat(averageRating)}
-                        {'☆'.repeat(5 - averageRating)}
-                    </div>
-                    
-                    <p>({allReviews.length})</p>
-                </div>
+                {/* <div className='productDisplay-right-stars'> */}
+                    {getRatingDisplay()}
+                {/* </div> */}
 
                 <div className='productDisplay-right-prices'>{formattedPrice(product.Price)} VND</div>
                 

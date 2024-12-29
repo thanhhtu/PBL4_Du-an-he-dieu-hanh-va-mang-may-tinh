@@ -35,12 +35,12 @@
     font-weight: 700;
 }
 
-.productDisplay-right-starts{
+.productDisplay-right-stars{
     display: flex;
     align-items: center;
-    margin-top: 13px;
+    margin-top: 10px;
     gap: 15px;
-    color: #1c1c1c;
+    color: #757575;
 }
 
 .review-star {
@@ -50,9 +50,9 @@
 
 .productDisplay-right-prices{
     display: flex;
-    margin: 20px 0px;
+    margin: 15px 0px;
     gap: 10px;
-    font-size: 24px;
+    font-size: 28px;
     font-weight: 700;
     color: #ff4141;
 }
@@ -123,6 +123,11 @@
     margin-bottom: 40px;
     outline: none;
     border: none;
+    border-radius: 5px;
     cursor: pointer;
+    transition: all 0.2s ease;
 }
 
+.productDisplay-right-btn:hover{
+    background: #e33535;
+}

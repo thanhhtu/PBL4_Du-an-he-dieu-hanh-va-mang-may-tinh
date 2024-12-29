@@ -7,7 +7,7 @@ import { format } from 'date-fns';
 import { errorToast, successToast } from '../Notification/Notification';
 import DOMPurify from 'dompurify';
 
-const DescriptionReviewBox = ({ product }) => {
+const DescriptionReviewBox = ({ product, onReviewAdded }) => {
     //tab switching
     const [activeTab, setActiveTab] = useState('description');
     const handleTabSwitch = (tab) => {
@@ -129,8 +129,8 @@ const DescriptionReviewBox = ({ product }) => {
                 });
                 
                 successToast(data.message);
-                
                 handleUserReviews();
+                onReviewAdded(); 
             } else {
                 errorToast(data.message);
             }
@@ -169,6 +169,7 @@ const DescriptionReviewBox = ({ product }) => {
             if (data.success) {
                 setAllReviews(data.data);
                 successToast(data.message);
+                onReviewAdded(); 
             } else {
                 errorToast(data.message);
             }
@@ -281,6 +282,7 @@ const DescriptionReviewBox = ({ product }) => {
                                 review={currentEditReview}
                                 onClose={() => setIsEditPopupOpen(false)}
                                 handleAllReviews={handleAllReviews}
+                                onReviewAdded={onReviewAdded}
                             />
                         )}
 
