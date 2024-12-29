@@ -3,7 +3,7 @@ import './EditReview.css';
 import authService from '../../services/auth.service';
 import { errorToast, successToast } from '../Notification/Notification';
 
-const EditReview = ({review, onClose, handleAllReviews}) => {
+const EditReview = ({review, onClose, handleAllReviews, onReviewAdded}) => {
     //review detail
     const [reviewDetail, setReviewDetail] = useState({
         Rating: review.Rating,
@@ -42,6 +42,7 @@ const EditReview = ({review, onClose, handleAllReviews}) => {
 
             if (data.success) {
                 successToast(data.message);
+                onReviewAdded();
             } else {
                 errorToast(data.message);
             }
