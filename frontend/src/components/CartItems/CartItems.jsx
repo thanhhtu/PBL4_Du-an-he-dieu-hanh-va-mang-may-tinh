@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
 import './CartItems.css';
 import { ShopContext } from '../../Context/ShopContext';
+import { Link } from 'react-router-dom';
+import { formattedPrice } from '../../services/formatNum.service';
 
 const CartItems = () => {
     const {getTotalCartAmount, cartItems, updateCartItem, removeFromCart} = useContext(ShopContext);
@@ -28,10 +30,12 @@ const CartItems = () => {
         }
     };
 
-    const formattedPrice = (price) => {
-        const newPrice = price;
-        return new Intl.NumberFormat('vi-VN').format(newPrice);
-    }
+    const isFormValid = () => {
+        if(cartItems.length > 0){
+            return true;
+        }
+        return false;
+    };
 
     return (
         <div className='cartItems'>
@@ -108,7 +112,16 @@ const CartItems = () => {
                             <h3>{formattedPrice(getTotalCartAmount())} VND</h3>
                         </div>
                     </div>
-                    <button>PROCEED TO CHECKOUT</button>
+                    
+                    <Link to={'/order'} style={{textDecoration: 'none'}}>
+                        <button 
+                            disabled={!isFormValid()} 
+                            className={!isFormValid() ? 'disabled-button' : ''} 
+                        >
+                            PROCEED TO CHECKOUT
+                        </button>
+                    </Link>
+                    
                 </div>
                 <div className='cartItems-promoCode'>
                     <p>If you have a promo code, enter it here</p>

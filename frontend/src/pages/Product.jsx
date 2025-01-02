@@ -7,9 +7,9 @@ import DescriptionReviewBox from '../components/DescriptionReviewBox/Description
 import RelatedProducts from '../components/RelatedProducts/RelatedProducts';
 
 const Product = () => {
-    const {allProducts}= useContext(ShopContext);
-    const {productId}= useParams();
-    const product = allProducts.find((e)=> e.ProductId === Number(productId));
+    const {allProducts} = useContext(ShopContext);
+    const {productId} = useParams();
+    const product = allProducts.find((e) => e.ProductId === Number(productId));
     if (!product) {
         return <div>Product not found</div>; // Fallback if product not found
     }

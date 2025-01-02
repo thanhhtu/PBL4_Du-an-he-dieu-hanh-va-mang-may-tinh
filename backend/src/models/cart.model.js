@@ -1,4 +1,6 @@
+import { StatusCodes } from 'http-status-codes';
 import pool from '../config/db.config';
+import CustomError from '../service/customError.service';
 import { errorHandlerFunc } from '../service/handleError.service';
 
 class CartModel {
@@ -27,6 +29,11 @@ class CartModel {
             const value = [userId, productId, quantity];
             const result = await connection.query(query, value);
             connection.release();
+
+            if(!result[0].insertId){
+                throw new CustomError(StatusCodes.BAD_REQUEST, 'No product is added to the cart');
+            }
+            
             return result[0].insertId;
         });
     }
@@ -36,9 +43,14 @@ class CartModel {
             const connection = await pool.getConnection();
             const query = 'UPDATE cart SET Quantity = ? WHERE UserId = ? AND ProductId = ?';
             const value = [quantity, userId, productId];
-            const result = await connection.query(query, value);
+            const results = await connection.query(query, value);
             connection.release();
-            return result[0].insertId;
+
+            if(!results[0].affectedRows){
+                throw new CustomError(StatusCodes.BAD_REQUEST, 'No cart is updated');
+            }
+            
+            return results[0].affectedRows;
         });
     }
 
@@ -47,7 +59,22 @@ class CartModel {
             const connection = await pool.getConnection();
             const results = await connection.query('DELETE FROM cart WHERE UserId = ? AND ProductId = ?', [userId, productId]);
             connection.release();
+            
+            if(!results[0].affectedRows){
+                throw new CustomError(StatusCodes.BAD_REQUEST, 'No product is removed from the cart');
+            }
+
             return results[0].affectedRows;
+        });
+    }
+
+    async getProductInCartByProductIds(productIds){
+        return errorHandlerFunc(async () => {
+            const connection = await pool.getConnection();
+            const placeholders = productIds.map(() => '?').join(',');
+            const [rows] = await connection.query(`SELECT * FROM cart WHERE ProductId IN (${placeholders});`, productIds);
+            connection.release();
+            return rows;
         });
     }
 }

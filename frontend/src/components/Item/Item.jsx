@@ -1,13 +1,9 @@
 import React from "react";
 import { Link } from 'react-router-dom'; // Ensure this is imported
 import './Item.css';
+import { formattedPrice } from "../../services/formatNum.service";
 
 const Item = (props) => { 
-    const formattedPrice = (price) => {
-        const newPrice = price;
-        return new Intl.NumberFormat('vi-VN').format(newPrice);
-    }
-
     return (
         <Link to={`/product/${props.id}`}>
             <div className='item'>

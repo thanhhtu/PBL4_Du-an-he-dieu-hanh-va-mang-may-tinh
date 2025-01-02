@@ -26,10 +26,23 @@ export const Permission = {
     EDIT_REVIEW: 'editReview',
     DELETE_REVIEW: 'deleteReview',
 
-    //CARTS - 1 product + 1 user = 1 cart
+    //CARTS -> 1 product + 1 user = 1 cart
     //user
     VIEW_CART: 'viewCart',
     ADD_TO_CART: 'addToCart',
     EDIT_CART: 'editCart',
     REMOVE_FROM_CART: 'removeFromCart',
+
+    //SHIPPING
+    //user
+    VIEW_SHIPPING: 'viewShipping',
+    ADD_SHIPPING: 'addShipping',
+    EDIT_SHIPPING: 'editShipping',
+    DELETE_SHIPPING: 'deleteShipping',
+    CHANGE_DEFAULT_SHIPPING: 'changeDefaultShipping',
+
+    //ORDER
+    //user
+    VIEW_ORDER: 'viewOrder',
+    ADD_ORDER: 'addOrder'
 };

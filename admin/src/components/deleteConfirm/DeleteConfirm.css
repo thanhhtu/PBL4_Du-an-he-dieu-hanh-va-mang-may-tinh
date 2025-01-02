@@ -24,7 +24,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 20px;
+    padding: 10px 20px;
     border-bottom: 1px solid #e0e0e0;
 }
 
@@ -35,14 +35,14 @@
 
 .delete-confirm-header h2 {
     margin: 0;
-    font-size: 16px;
+    font-size: 18px;
     color: #333;
 }
 
 .delete-confirm-close {
     background: none;
     border: none;
-    font-size: 24px;
+    font-size: 40px;
     color: #888;
     cursor: pointer;
     transition: color 0.2s;

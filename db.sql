@@ -5,7 +5,6 @@ CREATE TABLE user (
 	FullName VARCHAR(300) CHARACTER SET UTF8 COLLATE UTF8_UNICODE_CI NOT NULL,
 	Email VARCHAR(300) NOT NULL,
 	Password VARCHAR(300) NOT NULL,
-	PhoneNumber VARCHAR(300) NOT NULL,
 	CreatedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
 	UpdatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 	PasswordResetToken VARCHAR(255),
@@ -13,16 +12,16 @@ CREATE TABLE user (
 	PasswordLastResetDate DATETIME
 );
 
-INSERT INTO user (FullName, Email, Password, PhoneNumber) VALUES ("admin", "admin@gmail.com", "$2a$12$OsGXapwWeo.rT/T3EMjxduFsy7Jrik8Ww64azaWpib3EPJwERkBmW", "0396541270");
-INSERT INTO user (FullName, Email, Password, PhoneNumber) VALUES 
-("John Doe", "john.doe@example.com", "$2a$12$OsGXapwWeo.rT/T3EMjxduFsy7Jrik8Ww64azaWpib3EPJwERkBmW", "0123456780"),
-("Jane Smith", "jane.smith@example.com", "$2a$12$OsGXapwWeo.rT/T3EMjxduFsy7Jrik8Ww64azaWpib3EPJwERkBmW", "0123456781"),
-("Alice Johnson", "alice.johnson@example.com", "$2a$12$OsGXapwWeo.rT/T3EMjxduFsy7Jrik8Ww64azaWpib3EPJwERkBmW", "0123456782"),
-("Bob Brown", "bob.brown@example.com", "$2a$12$OsGXapwWeo.rT/T3EMjxduFsy7Jrik8Ww64azaWpib3EPJwERkBmW", "0123456783"),
-("Charlie Davis", "charlie.davis@example.com", "$2a$12$OsGXapwWeo.rT/T3EMjxduFsy7Jrik8Ww64azaWpib3EPJwERkBmW", "0123456784");
+INSERT INTO user (FullName, Email, Password) VALUES ("admin", "admin@gmail.com", "$2a$12$OsGXapwWeo.rT/T3EMjxduFsy7Jrik8Ww64azaWpib3EPJwERkBmW");
+INSERT INTO user (FullName, Email, Password) VALUES 
+("John Doe", "john.doe@example.com", "$2a$12$OsGXapwWeo.rT/T3EMjxduFsy7Jrik8Ww64azaWpib3EPJwERkBmW"),
+("Jane Smith", "jane.smith@example.com", "$2a$12$OsGXapwWeo.rT/T3EMjxduFsy7Jrik8Ww64azaWpib3EPJwERkBmW"),
+("Alice Johnson", "alice.johnson@example.com", "$2a$12$OsGXapwWeo.rT/T3EMjxduFsy7Jrik8Ww64azaWpib3EPJwERkBmW"),
+("Bob Brown", "bob.brown@example.com", "$2a$12$OsGXapwWeo.rT/T3EMjxduFsy7Jrik8Ww64azaWpib3EPJwERkBmW"),
+("Charlie Davis", "charlie.davis@example.com", "$2a$12$OsGXapwWeo.rT/T3EMjxduFsy7Jrik8Ww64azaWpib3EPJwERkBmW");
 
 CREATE TABLE role (
-	RoleId INT PRIMARY KEY AUTO_INCREMENT,
+	RoleId INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
 	RoleName VARCHAR(255) NOT NULL
 );
 
@@ -30,9 +29,9 @@ INSERT INTO role (RoleName) VALUES ("admin");
 INSERT INTO role (RoleName) VALUES ("user");
 
 CREATE TABLE user_role (
-	UserId INT,
+	UserId INT NOT NULL,
 	FOREIGN KEY(UserId) REFERENCES user(UserId) ON DELETE CASCADE,
-	RoleId INT,
+	RoleId INT NOT NULL,
 	FOREIGN KEY(RoleId) REFERENCES role(RoleId) ON DELETE CASCADE
 );
 
@@ -44,14 +43,14 @@ INSERT INTO user_role (UserId, RoleId) VALUES (5, 2);
 INSERT INTO user_role (UserId, RoleId) VALUES (6, 2);
 
 CREATE TABLE permission (
-	PermissionId INT PRIMARY KEY AUTO_INCREMENT,
+	PermissionId INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
 	PermissionName VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE role_permission (
-	RoleId INT,
+	RoleId INT NOT NULL,
 	FOREIGN KEY(RoleId) REFERENCES Role(RoleId) ON DELETE CASCADE,
-	PermissionId INT,
+	PermissionId INT NOT NULL,
 	FOREIGN KEY(PermissionId) REFERENCES permission(PermissionId) ON DELETE CASCADE
 );
 
@@ -87,12 +86,28 @@ INSERT INTO role_permission (RoleId, PermissionId) VALUES (2, 13);
 INSERT INTO permission (PermissionName) VALUES ('removeFromCart');
 INSERT INTO role_permission (RoleId, PermissionId) VALUES (2, 14);
 
+INSERT INTO permission (PermissionName) VALUES ('viewShipping');
+INSERT INTO role_permission (RoleId, PermissionId) VALUES (2, 15);
+INSERT INTO permission (PermissionName) VALUES ('addShipping');
+INSERT INTO role_permission (RoleId, PermissionId) VALUES (2, 16);
+INSERT INTO permission (PermissionName) VALUES ('editShipping');
+INSERT INTO role_permission (RoleId, PermissionId) VALUES (2, 17);
+INSERT INTO permission (PermissionName) VALUES ('deleteShipping');
+INSERT INTO role_permission (RoleId, PermissionId) VALUES (2, 18);
+INSERT INTO permission (PermissionName) VALUES ('changeDefaultShipping');
+INSERT INTO role_permission (RoleId, PermissionId) VALUES (2, 19);
+
+INSERT INTO permission (PermissionName) VALUES ('viewOrder');
+INSERT INTO role_permission (RoleId, PermissionId) VALUES (2, 20);
+INSERT INTO permission (PermissionName) VALUES ('addOrder');
+INSERT INTO role_permission (RoleId, PermissionId) VALUES (2, 21);
+
 CREATE TABLE product (
 	ProductId INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
 	ProductName VARCHAR(300) CHARACTER SET UTF8 COLLATE UTF8_UNICODE_CI NOT NULL,
 	Description VARCHAR(300) CHARACTER SET UTF8 COLLATE UTF8_UNICODE_CI NOT NULL,
-	Price FLOAT,
-	Quantity INT,
+	Price DECIMAL(10, 2) NOT NULL,
+	Quantity INT NOT NULL,
 	ImageUrl VARCHAR(300) NOT NULL,
 	ImagePublicId VARCHAR(300) NOT NULL,
 	CreatedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -135,20 +150,20 @@ INSERT INTO product (ProductName, Description, Price, Quantity, ImageUrl, ImageP
 
 CREATE TABLE cart (
 	CartId INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-	UserId INT,
+	UserId INT NOT NULL,
 	FOREIGN KEY(UserId) REFERENCES user(UserId) ON DELETE CASCADE,
-	ProductId INT,
+	ProductId INT NOT NULL,
 	FOREIGN KEY(ProductId) REFERENCES product(ProductId) ON DELETE CASCADE,
 	Quantity INT DEFAULT 0
 );
 
 CREATE TABLE review (
 	ReviewId INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-	UserId INT,
+	UserId INT NOT NULL,
 	FOREIGN KEY(UserId) REFERENCES user(UserId) ON DELETE CASCADE,
-	ProductId INT,
+	ProductId INT NOT NULL,
 	FOREIGN KEY(ProductId) REFERENCES product(ProductId) ON DELETE CASCADE,
-	Rating INT,
+	Rating INT NOT NULL,
 	Content VARCHAR(300) CHARACTER SET UTF8 COLLATE UTF8_UNICODE_CI NOT NULL,
 	CreatedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
 	UpdatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -162,3 +177,42 @@ INSERT INTO review (UserId, ProductId, Rating, Content) VALUES
 (2, 2, 5, "Great product! Exceeded my expectations."),
 (3, 2, 5, "Great product! Exceeded my expectations."),
 (4, 2, 5, "Great product! Exceeded my expectations.");
+
+CREATE TABLE shipping(
+	ShippingId INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+	UserId INT NOT NULL,
+	FOREIGN KEY(UserId) REFERENCES user(UserId) ON DELETE CASCADE,
+	Name VARCHAR(255) NOT NULL,
+	PhoneNumber VARCHAR(255) NOT NULL,
+	Address VARCHAR(255) NOT NULL,
+	IsDefault BIT NOT NULL
+);
+
+INSERT INTO shipping (UserId, Name, PhoneNumber, Address, IsDefault) VALUES 
+(2, "John Doe", "0123456789", "123 Au Co, Liên Chieu, Da Nang", 1),
+(3, "Jane Smith", "0987654321", "123 Au Co, Liên Chieu, Da Nang", 1),
+(4, "Alice Johnson", "0123654789", "123 Au Co, Liên Chieu, Da Nang", 1),
+(5, "Bob Brown", "0321456987", "123 Au Co, Liên Chieu, Da Nang", 1),
+(6, "Charlie Davis", "0147852369", "123 Au Co, Liên Chieu, Da Nang", 1);
+
+CREATE TABLE purchase_order(
+	OrderId INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+	UserId INT NOT NULL,
+	FOREIGN KEY(UserId) REFERENCES user(UserId) ON DELETE CASCADE,
+	ShippingId INT NOT NULL,
+	FOREIGN KEY(ShippingId) REFERENCES shipping(ShippingId) ON DELETE CASCADE,
+	TotalPrice DECIMAL(10, 2) NOT NULL,
+	PaymentMethod VARCHAR(255) NOT NULL,
+	CreatedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+	UpdatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE order_product(
+	OrderProductId INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+	OrderId INT NOT NULL,
+	FOREIGN KEY(OrderId) REFERENCES purchase_order(OrderId) ON DELETE CASCADE,
+	ProductId INT NOT NULL,
+	FOREIGN KEY(ProductId) REFERENCES product(ProductId) ON DELETE CASCADE,
+	Quantity INT NOT NULL,
+	PriceAtOrder DECIMAL(10, 2) NOT NULL
+);

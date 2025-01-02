@@ -38,7 +38,12 @@ const Navbar = () => {
             
             <div className='nav-name-login-cart'>
                 <div className='nav-name-login'>
-                    <div className='nav-name'>Hi {name || 'Guest'}</div>
+                    {name ? 
+                        <Link style= {{textDecoration: 'none'}} to ='/profile'>
+                            <div className='nav-name'>Hi {name}</div>
+                        </Link> 
+                        : <div className='nav-name'>Hi Guest</div>
+                    }
 
                     {authService.getExpiredItem('auth-token')
                         ? <button onClick={() => {

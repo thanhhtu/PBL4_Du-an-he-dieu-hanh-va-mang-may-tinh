@@ -23,24 +23,20 @@ const Register = () => {
         const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return regex.test(email);
     };
+
     const [fullNameError, setFullNameError] = useState('');
     const isValidFullName = (fullName) => {
         const regex = /^[A-Za-zÀ-ÿ\s]+$/ ; 
         return regex.test(fullName);
     };
-    const [phoneNumberError, setPhoneNumberError] = useState('');
-    const isValidPhoneNumber = (phoneNumber) => {
-        const regex = /^(0|\+84)([0-9]{9,10})$/; //start by 0 or +84 
-        return regex.test(phoneNumber);
-    };
+    
     const [passwordError, setPasswordError] = useState('');
 
     const [formData, setFormData] = useState({
         Email: '',
         Password: '',
         ConfirmPassword: '',
-        FullName: '',
-        PhoneNumber: ''
+        FullName: ''
     });
 
     const changeHandler = (e) => {
@@ -69,15 +65,6 @@ const Register = () => {
             }
         }
 
-        //check phone number
-        if (name === 'PhoneNumber') {
-            if (!isValidPhoneNumber(value)) {
-                setPhoneNumberError('Invalid phone number address');
-            } else {
-                setPhoneNumberError('');
-            }
-        }
-
         //check password
         if (name === 'ConfirmPassword') {
             if (formData.Password !== value) {
@@ -102,8 +89,6 @@ const Register = () => {
             isValidEmail(formData.Email) &&
             formData.FullName.trim() !== '' && 
             isValidFullName(formData.FullName) &&
-            formData.PhoneNumber.trim() !== '' && 
-            isValidPhoneNumber(formData.PhoneNumber) &&
             formData.Password.trim() !== '' &&
             formData.ConfirmPassword.trim() !== '' &&
             formData.Password === formData.ConfirmPassword
@@ -138,7 +123,13 @@ const Register = () => {
     };
 
     return (
-        <div className='loginRegister'>
+        <form 
+            className='loginRegister'
+            onSubmit={(e) => {
+                e.preventDefault() //prevent default submit
+                register()
+            }}
+        >
             <div className='loginRegister-container'>
                 <h1>REGISTER</h1>
                 <div className='loginRegister-fields'>
@@ -164,18 +155,6 @@ const Register = () => {
                             placeholder='Full Number' 
                         />
                         {fullNameError && <div className='error-message'>The full name is invalid</div>}
-                    </div>
-                    
-                    <div>
-                        <input 
-                            className={phoneNumberError && 'error-info'}
-                            name='PhoneNumber' 
-                            value={formData.PhoneNumber} 
-                            onChange={changeHandler}  
-                            type='text' 
-                            placeholder='Phone Number' 
-                        />  
-                        {phoneNumberError && <div className='error-message'>The phone number is invalid</div>}
                     </div>
 
                     <div className='password-wrapper'>
@@ -225,11 +204,10 @@ const Register = () => {
                 </div>
                 
                 <button 
-                    onClick={() => register()}
                     disabled={!isFormValid()} 
                     className={!isFormValid() ? 'disabled-button' : ''} 
                 >
-                    Continue
+                    CONTINUE
                 </button>
                 
                 <p className='loginRegister-login'>
@@ -244,7 +222,7 @@ const Register = () => {
                     <p>By continuing, you agree to terms of Service and Privacy Policy</p>
                 </div>
             </div>
-        </div>
+        </form>
     );
 };
 

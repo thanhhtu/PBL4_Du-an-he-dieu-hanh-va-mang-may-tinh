@@ -7,7 +7,7 @@ class AuthController {
         try{
             const newUserInfo = req.body;
 
-            const {token, name, roles} = await authService.register(newUserInfo);
+            const {token, name} = await authService.register(newUserInfo);
             res.status(StatusCodes.OK).json({
                 success: true,
                 message: 'Register successfully',

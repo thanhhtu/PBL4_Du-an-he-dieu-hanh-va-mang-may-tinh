@@ -12,7 +12,7 @@ const DeleteConfirmPopup = ({ itemId, onClose, onDelete }) => {
             <div className='delete-confirm-content'>
                 <div className='delete-confirm-header'>
                     <i className='fa-solid fa-triangle-exclamation' />
-                    <h2>ARE YOU SURE?</h2>
+                    <h2>CONFIRMATION</h2>
                     <button 
                         className='delete-confirm-close' 
                         onClick={onClose}

@@ -25,7 +25,7 @@ class CartController {
             const result = await cartService.addProductToCart(userId, productId, quantity);
             res.status(StatusCodes.OK).json({
                 success: true,
-                message: 'Add successfully',
+                message: 'Added successfully',
                 insertId: result,
             });
         }catch(error){
@@ -42,7 +42,7 @@ class CartController {
             await cartService.updateCart(userId, productId, quantity);
             res.status(StatusCodes.OK).json({
                 success: true,
-                message: 'Update successfully'
+                message: 'Updated successfully'
             });
         }catch(error){
             handlerErrorRes(error, res);
@@ -57,7 +57,7 @@ class CartController {
             await cartService.deleteProductFromCart(userId, productId);
             res.status(StatusCodes.OK).json({
                 success: true,
-                message: 'Delete successfully'
+                message: 'Deleted successfully'
             });
         }catch(error){
             handlerErrorRes(error, res);

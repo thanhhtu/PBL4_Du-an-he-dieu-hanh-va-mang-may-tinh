@@ -91,7 +91,6 @@ const ManageUsers = () => {
                 <p>ID</p>
                 <p>Full Name</p>
                 <p>Email</p>
-                <p>Phone Number</p>
                 <p>Remove</p>
             </div>
             <div className='manageUser-allUsers'>
@@ -104,7 +103,6 @@ const ManageUsers = () => {
                             <p>{user.Id}</p>
                             <p>{user.FullName}</p>
                             <p>{user.Email}</p>
-                            <p>{user.PhoneNumber}</p>
                             <div onClick={() => openDelConfirmPopup(user.Id)} className='manageUser-remove-icon'>
                                 <i className='fa-solid fa-trash'></i>
                             </div>

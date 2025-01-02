@@ -9,14 +9,14 @@ const route = express.Router();
 
 route.get('/:productId',
     validateMiddleware.productId,
-    reviewController.getAllProductReviews
+    reviewController.getProductReviews
 );
 
 route.use(verifyMiddleware.checkAuth);
 
 route.get('/:productId/user',
     validateMiddleware.productId,
-    reviewController.getAllUserProductReviews
+    reviewController.getUserProductReviews
 );
 
 route.post('/:productId',

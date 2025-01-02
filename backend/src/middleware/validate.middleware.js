@@ -41,6 +41,18 @@ class ValidateMiddleware {
         })
     );
 
+    shippingId = this.checkParams(
+        Joi.object({
+            shippingId: Joi.number().integer().optional(),
+        })
+    );
+
+    orderId = this.checkParams(
+        Joi.object({
+            orderId: Joi.number().integer().optional(),
+        })
+    );
+
     //auth
     async checkRegister(req, res, next) {
         try {
@@ -58,10 +70,6 @@ class ValidateMiddleware {
                             .pattern(new RegExp(/^[A-Za-zÀ-ÿ\s]+$/))
                             .trim()
                             .required(),
-
-                PhoneNumber: Joi.string()
-                                .pattern(new RegExp(/^(0|\+84)([0-9]{9,10})$/)) 
-                                .required(),
             }).with('Password', 'ConfirmPassword');
 
             await validateInput.validateAsync(req.body, { abortEarly: false });
@@ -133,10 +141,6 @@ class ValidateMiddleware {
                             .pattern(new RegExp(/^[A-Za-zÀ-ÿ\s]+$/))
                             .trim()
                             .required(),
-
-                PhoneNumber: Joi.string()
-                                .pattern(new RegExp(/^\+?[0-9]{10,15}$/))
-                                .required(),
             })
 
             await validateInput.validateAsync(req.body, { abortEarly: false });
@@ -207,6 +211,80 @@ class ValidateMiddleware {
                             .positive()
                             .min(1)
                             .required(),
+            });
+
+            await validateInput.validateAsync(req.body, { abortEarly: false });
+            next();
+        } catch (error) {
+            return handlerErrorRes(error, res);
+        }
+    }
+
+    //shipping information
+    async checkShipping(req, res, next) {
+        try {
+            const validateInput = Joi.object({
+                Name: Joi.string().trim().required(),
+
+                PhoneNumber: Joi.string()
+                                .pattern(new RegExp(/^(0|\+84)([0-9]{9,10})$/)) 
+                                .required(),
+
+                Address: Joi.string().trim().required(),
+            });
+
+            await validateInput.validateAsync(req.body, { abortEarly: false });
+            next();
+        } catch (error) {
+            return handlerErrorRes(error, res);
+        }
+    }
+
+    //order
+    async checkOrder(req, res, next) {
+        try {
+            const uniqueProductIds = (value, helpers) => {
+                const productIds = value.map(item => item.ProductId);
+                const uniqueProductIds = new Set(productIds);
+            
+                if (productIds.length !== uniqueProductIds.size) {
+                    return helpers.message('ProductId must be unique');
+                }
+            
+                return value;
+            };
+
+            const validateOrderProduct = Joi.object({
+                ProductId: Joi.number()
+                    .integer()
+                    .positive()
+                    .required(),
+                
+                Quantity: Joi.number()
+                    .integer()
+                    .min(1)
+                    .required(),
+
+                PriceAtOrder: Joi.number()
+                    .precision(2)
+                    .positive()
+                    .min(0.01)
+                    .required(),
+            });
+
+            const validateInput = Joi.object({
+                ShippingId: Joi.number().integer().required(),
+
+                PaymentMethod: Joi.string()
+                                    .trim()
+                                    .valid('E-Wallet', 'Cash on Delivery')
+                                    .required(),   
+
+                OrderProducts: Joi.array()
+                            .items(validateOrderProduct)
+                            .min(1)
+                            .required()
+                            .custom(uniqueProductIds, 'Unique ProductIds validation')
             });
 
             await validateInput.validateAsync(req.body, { abortEarly: false });

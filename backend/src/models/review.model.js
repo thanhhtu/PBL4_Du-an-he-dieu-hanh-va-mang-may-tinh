@@ -1,5 +1,7 @@
 import pool from '../config/db.config';
+import CustomError from '../service/customError.service';
 import { errorHandlerFunc } from '../service/handleError.service';
+import { StatusCodes } from 'http-status-codes';
 
 class ReviewModel {
     async getReviewsByProductId(productId){
@@ -40,6 +42,11 @@ class ReviewModel {
             const result = await connection.query(query, value);
 
             connection.release();
+
+            if(!result[0].insertId){
+                throw new CustomError(StatusCodes.BAD_REQUEST, 'No review is added');
+            }
+
             return result[0].insertId;
         });
     }
@@ -53,6 +60,11 @@ class ReviewModel {
             const result = await connection.query(query, value);
 
             connection.release();
+
+            if(!result[0].affectedRows){
+                throw new CustomError(StatusCodes.BAD_REQUEST, 'No review is updated');
+            }
+
             return result[0].affectedRows;
         });
     }
@@ -66,6 +78,11 @@ class ReviewModel {
             const result = await connection.query(query, value);
 
             connection.release();
+
+            if(!result[0].affectedRows){
+                throw new CustomError(StatusCodes.BAD_REQUEST, 'No review is deleted');
+            }
+
             return result[0].affectedRows;
         });
     }

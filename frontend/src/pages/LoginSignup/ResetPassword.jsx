@@ -157,7 +157,7 @@ const ResetPassword = () => {
                     disabled={!isFormValid()} 
                     className={!isFormValid() ? 'disabled-button' : ''} 
                 >
-                    Continue
+                    CONTINUE
                 </button>
             </div>
         </div>

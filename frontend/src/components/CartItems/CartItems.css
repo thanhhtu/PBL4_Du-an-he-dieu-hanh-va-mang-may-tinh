@@ -95,16 +95,17 @@
 }
 
 .cartItems-down{
-     display: flex;
-     margin: 100px 0px;
+    display: flex;
+    margin: 100px 0px;
+    gap: 30px
 }
 
 .cartItems-total{
     flex:1;
     display: flex;
     flex-direction: column;
-    margin-right: 200px;
-    gap: 40px;
+    margin-right: 100px;
+    gap: 30px;
 }
 
 .cartItems-total-item{
@@ -124,10 +125,16 @@
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
+    transition: all 0.25s ease;
 }
 
 .cartItems-total button:hover{
     background: #e33535;
+}
+
+.disabled-button {
+    opacity: 0.5;
+    cursor: not-allowed!important;
 }
 
 .cartItems-promoCode {
@@ -141,25 +148,26 @@
 }
 
 .cartItems-promoBox{
-    width: 504px;
+    width: 400px;
     margin-top: 15px;
-    padding-left: 20px;
-    height: 58px;
-    background: #eaeaea;
+    height: 50px;
+    display: flex;
+    gap: 15px;
 }
 
 .cartItems-promoBox input{
     border: none;
     outline: none;
-    background: transparent;
+    background: #eaeaea;
     font-size: 16px;
-    width: 330px;
-    height: 50px;
+    padding-left: 20px;
+    border-radius: 0.275rem;
+    width: 70%;
 }
 
 .cartItems-promoBox button{
-    width: 170px;
-    height: 58px;
+    width: 30%;
+    border-radius: 0.275rem;
     font-size: 16px;
     background: black;
     color: white;

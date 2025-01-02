@@ -102,7 +102,7 @@ const ForgetPassword = () => {
                     disabled={!isFormValid()} 
                     className={!isFormValid() ? 'disabled-button' : ''} 
                 >
-                    Continue
+                    CONTINUE
                 </button>
             </div>
         </form>

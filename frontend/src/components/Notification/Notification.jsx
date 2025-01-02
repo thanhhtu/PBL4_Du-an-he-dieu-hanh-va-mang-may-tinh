@@ -32,7 +32,7 @@ export const successToast = (message) => {
 
 export const errorToast = (message) => {
     if(message === 'jwt expired' || message === 'jwt malformed'){
-        message = 'Please log in to access this feature';
+        message = 'Please log in to continue';
     }
     toast.error(message, {
         position: "top-right",

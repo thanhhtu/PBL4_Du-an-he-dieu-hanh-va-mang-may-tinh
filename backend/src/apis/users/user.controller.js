@@ -23,7 +23,7 @@ class UserController {
             await userService.updateUser(userId, userInfo);
             res.status(StatusCodes.OK).json({
                 success: true,
-                message: 'Update successfully'
+                message: 'Updated successfully'
             });
         }catch(error){
             handlerErrorRes(error, res);
@@ -48,7 +48,7 @@ class UserController {
             await userService.deleteUser(userId);
             res.status(StatusCodes.OK).json({
                 success: true,
-                message: 'Delete successfully'
+                message: 'Deleted successfully'
             });
         }catch(error){
             handlerErrorRes(error, res);

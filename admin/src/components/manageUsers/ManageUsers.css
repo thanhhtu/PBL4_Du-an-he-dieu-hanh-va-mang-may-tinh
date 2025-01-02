@@ -20,7 +20,7 @@
 
 .manageUser-format-main{
     display: grid;
-    grid-template-columns: 0.5fr 2fr 2fr 3fr 2fr 1fr;
+    grid-template-columns: 1fr 1fr 2.5fr 3fr 1.5fr;
     gap: 10px;
     width: 100%;
     padding: 20px 0;

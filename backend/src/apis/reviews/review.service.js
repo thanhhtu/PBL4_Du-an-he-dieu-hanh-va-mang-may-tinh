@@ -4,7 +4,7 @@ import CustomError from '../../service/customError.service';
 import { StatusCodes } from 'http-status-codes';
 import userModel from '../../models/user.model';
 import productModel from '../../models/product.model';
-import sanitizeService, { purifyString } from '../../service/sanitize.service';
+import sanitizeService from '../../service/sanitize.service';
 
 class ReviewService{
     async reviewInfo(review){
@@ -21,7 +21,7 @@ class ReviewService{
         return reviewInfo;
     }
 
-    async getAllProductReviews(productId){
+    async getProductReviews(productId){
         return errorHandlerFunc(async () => {
             const product = await productModel.getProductById(productId);
             if(!product){
@@ -38,7 +38,7 @@ class ReviewService{
         });
     }
 
-    async getAllUserProductReviews(userId, productId){
+    async getUserProductReviews(userId, productId){
         return errorHandlerFunc(async () => {
             const product = await productModel.getProductById(productId);
             if(!product){
