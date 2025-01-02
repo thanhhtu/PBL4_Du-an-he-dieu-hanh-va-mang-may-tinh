@@ -10,6 +10,12 @@ class OrderController {
             let orders;
             if(orderId){
                 orders = await orderService.getDetailUserOrder(userId, orderId);
+
+                /*
+                //ERROR PATH TRAVERSAL
+                orders = await orderService.getDetailUserOrderError(userId, orderId);
+                //ERROR PATH TRAVERSAL
+                */
             }else{
                 orders = await orderService.getAllUserOrders(userId);
             }
