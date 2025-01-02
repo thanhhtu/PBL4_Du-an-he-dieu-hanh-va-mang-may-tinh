@@ -48,7 +48,7 @@ class ProductController {
             const result = await productService.addProduct(productInfo, img);
             res.status(StatusCodes.OK).json({
                 success: true,
-                message: 'Add successfully',
+                message: 'Added successfully',
                 insertId: result,
             });
         }catch(error){
@@ -64,7 +64,7 @@ class ProductController {
             await productService.updateProduct(productId, productInfo, img);
             res.status(StatusCodes.OK).json({
                 success: true,
-                message: 'Update successfully'
+                message: 'Updated successfully'
             });
         }catch(error){
             handlerErrorRes(error, res);
@@ -77,7 +77,7 @@ class ProductController {
             await productService.deleteProduct(productId);
             res.status(StatusCodes.OK).json({
                 success: true,
-                message: 'Delete successfully'
+                message: 'Deleted successfully'
             });
         }catch(error){
             handlerErrorRes(error, res);

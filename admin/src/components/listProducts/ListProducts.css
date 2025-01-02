@@ -20,7 +20,7 @@
 
 .listProduct-format-main{
     display: grid;
-    grid-template-columns: 1fr 2fr 1.5fr 1.5fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1.5fr 2fr 1.5fr 1fr 1fr 1fr;
     gap: 10px;
     width: 100%;
     padding: 20px 0;

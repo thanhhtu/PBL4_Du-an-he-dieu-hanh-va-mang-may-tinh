@@ -3,10 +3,10 @@ import { StatusCodes } from 'http-status-codes';
 import { handlerErrorRes } from '../../service/handleError.service';
 
 class ReviewController {
-    async getAllProductReviews(req, res, next) {
+    async getProductReviews(req, res, next) {
         try {
             const productId = req.params.productId;
-            const result = await reviewService.getAllProductReviews(productId);
+            const result = await reviewService.getProductReviews(productId);
             res.status(StatusCodes.OK).json({
                 success: true,
                 data: result,
@@ -16,11 +16,11 @@ class ReviewController {
         }
     }
 
-    async getAllUserProductReviews(req, res, next) {
+    async getUserProductReviews(req, res, next) {
         try {
             const userId = req.user.id;
             const productId = req.params.productId;
-            const result = await reviewService.getAllUserProductReviews(userId, productId);
+            const result = await reviewService.getUserProductReviews(userId, productId);
             res.status(StatusCodes.OK).json({
                 success: true,
                 data: result,
@@ -38,7 +38,7 @@ class ReviewController {
             const result = await reviewService.addProductReview(userId, productId, Rating, Content);
             res.status(StatusCodes.OK).json({
                 success: true,
-                message: 'Add successfully',
+                message: 'Added successfully',
                 insertId: result,
             });
         } catch (error) {
@@ -51,11 +51,10 @@ class ReviewController {
             const userId = req.user.id;
             const reviewId = req.params.reviewId;
             const {Rating, Content} = req.body;
-            const result = await reviewService.updateProductReview(userId, reviewId, Rating, Content);
+            await reviewService.updateProductReview(userId, reviewId, Rating, Content);
             res.status(StatusCodes.OK).json({
                 success: true,
-                message: 'Update successfully',
-                insertId: result,
+                message: 'Updated successfully',
             });
         } catch (error) {
             handlerErrorRes(error, res);
@@ -66,11 +65,10 @@ class ReviewController {
         try {
             const userId = req.user.id;
             const reviewId = req.params.reviewId;
-            const result = await reviewService.deleteProductReview(userId, reviewId);
+            await reviewService.deleteProductReview(userId, reviewId);
             res.status(StatusCodes.OK).json({
                 success: true,
-                message: 'Delete successfully',
-                insertId: result,
+                message: 'Deleted successfully',
             });
         } catch (error) {
             handlerErrorRes(error, res);

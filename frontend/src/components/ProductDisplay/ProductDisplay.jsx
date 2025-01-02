@@ -3,7 +3,6 @@ import './ProductDisplay.css';
 import { ShopContext } from '../../Context/ShopContext';
 
 const ProductDisplay = ({product, reviewsUpdated}) => {
-    // const {product} = props;
     const {addToCart} = useContext(ShopContext);
 
     const formattedPrice = (price) => {

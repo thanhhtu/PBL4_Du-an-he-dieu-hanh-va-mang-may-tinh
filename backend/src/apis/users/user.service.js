@@ -9,7 +9,6 @@ class UserService {
             Id: Number(user.UserId),
             FullName: user.FullName,
             Email: user.Email,
-            PhoneNumber: user.PhoneNumber,
             CreatedAt: user.CreatedAt,
         };
         return userInfo;

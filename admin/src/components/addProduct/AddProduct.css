@@ -18,6 +18,11 @@
     padding: 20px 0;
 }
 
+.add-product-body div p{
+    color: #454545;
+    font-weight: 600;
+}
+
 .addProduct-itemField{
     padding: 10px 0;
     width: 100%;

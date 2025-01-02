@@ -1,7 +1,9 @@
-import pool from '../config/db.config';
-import { errorHandlerFunc } from '../service/handleError.service';
 import rbacModel from './rbac.model';
 import { Role } from '../types/rbac.object';
+import pool from '../config/db.config';
+import CustomError from '../service/customError.service';
+import { errorHandlerFunc } from '../service/handleError.service';
+import { StatusCodes } from 'http-status-codes';
 
 class UserModel {
     //SQL INJECTION
@@ -53,9 +55,9 @@ class UserModel {
             const connection = await pool.getConnection();
         
             //add user
-            const queryUser = 'INSERT INTO user (Email, Password, FullName, PhoneNumber) VALUES (?, ?, ?, ?);';
-            const {Email, Password, FullName, PhoneNumber} = user;
-            const valueUser = [Email, Password, FullName, PhoneNumber];
+            const queryUser = 'INSERT INTO user (Email, Password, FullName) VALUES (?, ?, ?);';
+            const {Email, Password, FullName} = user;
+            const valueUser = [Email, Password, FullName];
             const resultUser = await connection.query(queryUser, valueUser);
 
             //add role
@@ -66,6 +68,11 @@ class UserModel {
             await connection.query(queryUserRole, valueUserRole);
 
             connection.release();
+
+            if(!userId){
+                throw new CustomError(StatusCodes.BAD_REQUEST, 'No user is created');
+            }
+
             return userId;
         });
     }
@@ -74,11 +81,16 @@ class UserModel {
         return errorHandlerFunc(async () => {
             const connection = await pool.getConnection();
             
-            const query = 'UPDATE user SET FullName = ?, PhoneNumber = ? WHERE UserId = ?';
-            const value = [userInfo.FullName, userInfo.PhoneNumber, userId];
+            const query = 'UPDATE user SET FullName = ? WHERE UserId = ?';
+            const value = [userInfo.FullName, userId];
             const results = await connection.query(query, value);
 
             connection.release();
+
+            if(!results[0].affectedRows){
+                throw new CustomError(StatusCodes.BAD_REQUEST, 'No user is updated');
+            }
+
             return results[0].affectedRows;
         });
     }
@@ -86,9 +98,14 @@ class UserModel {
     async deleteUser(userId) {
         return errorHandlerFunc(async () => {
             const connection = await pool.getConnection();
-            const result = await connection.query('DELETE FROM user WHERE UserId = ?', userId);
+            const results = await connection.query('DELETE FROM user WHERE UserId = ?', userId);
             connection.release();
-            return result[0].affectedRows;
+
+            if(!results[0].affectedRows){
+                throw new CustomError(StatusCodes.BAD_REQUEST, 'No user is deleted');
+            }
+
+            return results[0].affectedRows;
         });
     }
 

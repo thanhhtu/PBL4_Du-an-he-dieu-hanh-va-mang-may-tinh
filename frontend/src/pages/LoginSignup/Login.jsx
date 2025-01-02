@@ -128,11 +128,10 @@ const Login = () => {
                 </div>
                 
                 <button 
-                    onClick={() => register()}
                     disabled={!isFormValid()} 
                     className={!isFormValid() ? 'disabled-button' : ''} 
                 >
-                    Continue
+                    CONTINUE
                 </button>
                 
                 <p className='loginRegister-register'>

@@ -1,5 +1,7 @@
 import pool from '../config/db.config';
+import CustomError from '../service/customError.service';
 import { errorHandlerFunc } from '../service/handleError.service';
+import { StatusCodes } from 'http-status-codes';
 
 class ProductModel {
     async getProductById(productId){
@@ -28,6 +30,11 @@ class ProductModel {
             const value = [ProductName, Description, Price, Quantity, imgUrl, imgPublicId];
             const result = await connection.query(query, value);
             connection.release();
+
+            if(!result[0].insertId){
+                throw new CustomError(StatusCodes.BAD_REQUEST, 'No product is added');
+            }
+
             return result[0].insertId;
         });
     }
@@ -40,6 +47,11 @@ class ProductModel {
             const value = [ProductName, Description, Price, Quantity, imgUrl, imgPublicId, productId];
             const results = await connection.query(query, value);
             connection.release();
+
+            if(!results[0].affectedRows){
+                throw new CustomError(StatusCodes.BAD_REQUEST, 'No product is updated');
+            }
+            
             return results[0].affectedRows;
         });
     }
@@ -49,6 +61,35 @@ class ProductModel {
             const connection = await pool.getConnection();
             const results = await connection.query('DELETE FROM product WHERE ProductId = ?', productId);
             connection.release();
+
+            if(!results[0].affectedRows){
+                throw new CustomError(StatusCodes.BAD_REQUEST, 'No product is deleted');
+            }
+
+            return results[0].affectedRows;
+        });
+    }
+
+    async getProductsByIds(productIds){
+        return errorHandlerFunc(async () => {
+            const connection = await pool.getConnection();
+            const placeholders = productIds.map(() => '?').join(',');
+            const [rows] = await connection.query(`SELECT * FROM product WHERE ProductId IN (${placeholders});`, productIds);
+            connection.release();
+            return rows;
+        });
+    }
+
+    async updateStockQuantity(productId, stockQuantity){
+        return errorHandlerFunc(async () => {
+            const connection = await pool.getConnection();
+            const results = await connection.query('UPDATE product SET Quantity = ? WHERE ProductId = ?', [stockQuantity, productId]);
+            connection.release();
+
+            if(!results[0].affectedRows){
+                throw new CustomError(StatusCodes.BAD_REQUEST, 'No product is updated');
+            }
+            
             return results[0].affectedRows;
         });
     }

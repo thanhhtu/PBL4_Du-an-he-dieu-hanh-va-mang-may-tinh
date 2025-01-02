@@ -1,6 +1,7 @@
 import pool from '../config/db.config';
 import CustomError from '../service/customError.service';
 import { errorHandlerFunc } from '../service/handleError.service';
+import { StatusCodes } from 'http-status-codes';
 
 class RbacModel {
     async getRoleIdByRoleName(roleName){
