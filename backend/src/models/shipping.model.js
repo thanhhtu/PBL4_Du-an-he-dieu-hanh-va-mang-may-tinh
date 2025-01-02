@@ -100,6 +100,15 @@ class ShippingModel {
             return result[0].affectedRows;
         });
     }
+
+    async getShippingById(shippingId){
+        return errorHandlerFunc(async () => {
+            const connection = await pool.getConnection();
+            const [rows] = await connection.query('SELECT *, CAST(IsDefault AS INT) AS IsDefault FROM shipping WHERE ShippingId = ?;', shippingId);
+            connection.release();
+            return rows[0];
+        });
+    }
 }
 
 export default new ShippingModel();

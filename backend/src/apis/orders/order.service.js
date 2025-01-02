@@ -67,6 +67,41 @@ class OrderService{
         });
     }
 
+    //ERROR PATH TRAVERSAL
+    async orderInfoError(order){
+        const shipping = await shippingModel.getShippingById(order.ShippingId);
+        
+        const orderProducts = await orderProductModel.getOrderProductsByOrderId(order.OrderId);
+        let allOrderProductInfo = [];
+        for(let orderProduct of orderProducts){
+            const orderProductInfo = await this.orderProductInfo(orderProduct);
+            allOrderProductInfo.push(orderProductInfo);
+        }
+
+        let orderInfo = {
+            OrderId: Number(order.OrderId),
+            UserId: Number(order.UserId),
+
+            ShippingInfo: await this.shippingInfo(shipping),
+            
+            TotalPrice: order.TotalPrice,
+            PaymentMethod: order.PaymentMethod,
+            CreatedAt: order.CreatedAt,
+
+            allOrderProducts: allOrderProductInfo
+        };
+        return orderInfo;
+    }
+
+    async getDetailUserOrderError(userId, orderId){
+        return errorHandlerFunc(async () => {
+            const order = await orderModel.getOrderById(orderId);
+            const orderInfo = await this.orderInfoError(order);
+            return orderInfo;
+        });
+    }
+    //ERROR PATH TRAVERSAL
+
     async getAllUserOrders(userId){
         return errorHandlerFunc(async () => {
             const orders = await orderModel.getAllUserOrders(userId);
