@@ -11,8 +11,8 @@ class ValidateMiddleware {
         });
     }
 
-    //params
-    checkParams(schema) {
+    //path params
+    checkPathParams(schema) {
         return async (req, res, next) => {
             try {
                 await schema.validateAsync(req.params, { abortEarly: false });
@@ -23,33 +23,53 @@ class ValidateMiddleware {
         };
     }
 
-    userId = this.checkParams(
+    userId = this.checkPathParams(
         Joi.object({
             userId: Joi.number().integer().optional()
         })
     );
 
-    productId = this.checkParams(
+    productId = this.checkPathParams(
         Joi.object({
             productId: Joi.number().integer().optional()
         })
     );
 
-    reviewId = this.checkParams(
+    reviewId = this.checkPathParams(
         Joi.object({
             reviewId: Joi.number().integer().optional(),
         })
     );
 
-    shippingId = this.checkParams(
+    shippingId = this.checkPathParams(
         Joi.object({
             shippingId: Joi.number().integer().optional(),
         })
     );
 
-    orderId = this.checkParams(
+    orderId = this.checkPathParams(
         Joi.object({
             orderId: Joi.number().integer().optional(),
+        })
+    );
+
+    //query param
+    checkQueryParams(schema) {
+        return async (req, res, next) => {
+            try {
+                await schema.validateAsync(req.query, { abortEarly: false });
+                next();
+            } catch (error) {
+                handlerErrorRes(error, res);
+            }
+        };
+    }
+
+    filename = this.checkQueryParams(
+        Joi.object({
+            filename: Joi.string()
+                    .pattern(/^order-(\d+)\.pdf$/)
+                    .optional(),
         })
     );
 

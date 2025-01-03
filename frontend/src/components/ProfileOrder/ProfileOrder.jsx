@@ -62,10 +62,6 @@ const TablePaginationActions = ({ count, page, rowsPerPage, onPageChange }) => {
     );
 };
 
-const createData = (name, calories, fat) => {
-    return { name, calories, fat };
-};
-
 const ProfileOrder = () => {
     //get all user orders
     const [allOrderData, setAllOrderData] = useState([]);
@@ -97,7 +93,7 @@ const ProfileOrder = () => {
         fetchDetailOrder();
     }, []);
 
-    // useEffect(() => {}, [allOrderData]);
+    
 
     const [page, setPage] = useState(0);
     const [ordersPerPage, setOrdersPerPage] = useState(5);
@@ -145,7 +141,7 @@ const ProfileOrder = () => {
                                     {order.PaymentMethod}
                                 </td>
                                 <td className='table-cell table-cell-center col15 profile-order-receipt'>
-                                    <Link to={`/receipt/${order.OrderId}`} style={{textDecoration: 'none'}}>
+                                    <Link to={`/receipt?filename=order-${order.OrderId}.pdf`} style={{textDecoration: 'none'}}>
                                         <i className='fa-solid fa-receipt' />
                                     </Link>
                                 </td>

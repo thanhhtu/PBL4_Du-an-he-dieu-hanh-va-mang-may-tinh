@@ -37,15 +37,6 @@ class OrderModel {
             return result[0].insertId;
         });
     }
-
-    async getOrderById(orderId){
-        return errorHandlerFunc(async () => {
-            const connection = await pool.getConnection();
-            const [rows] = await connection.query('SELECT * FROM purchase_order WHERE OrderId = ?;', orderId);
-            connection.release();
-            return rows[0];
-        });
-    }
 }
 
 export default new OrderModel();

@@ -72,9 +72,10 @@ const RouterForApp = () => {
                 </Route>
 
                 <Route element={<PrivateAuthRoute />}>
-                    <Route path="/receipt/" element={<Receipt />}>
+                    {/* <Route path="/receipt/" element={<Receipt />}>
                         <Route path=":orderId" element={<Receipt />} />
-                    </Route>
+                    </Route> */}
+                    <Route path="/receipt" element={<Receipt />} />
                 </Route>
             </Routes>
             {!isInvoicePage && <Footer />}

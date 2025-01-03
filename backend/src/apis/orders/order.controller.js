@@ -3,6 +3,44 @@ import { StatusCodes } from 'http-status-codes';
 import { handlerErrorRes } from '../../service/handleError.service';
 
 class OrderController {
+    async getOrderReceipt(req, res, next) {
+        try {
+            const userId = req.user.id;
+            const filename = req.query.filename;
+
+            const filePath = await orderService.getOrderReceipt(userId, filename);
+            
+            res.sendFile(filePath, (err) => {
+                if(err){
+                    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ 
+                        message: 'Error sending file',
+                        error: err.message 
+                    });
+                }
+            });
+        } catch (error) {
+            handlerErrorRes(error, res);
+        }
+    }
+
+    //ERROR PATH TRAVERSAL
+    async getOrderReceiptError(req, res, next) {
+        try {
+            const filename = req.query.filename;
+
+            const filePath = await orderService.getOrderReceiptError(filename);
+            
+            res.sendFile(filePath, (err) => {
+                if(err){
+                    console.log(`Error sending file: ${err}`);
+                }
+            });
+        } catch (error) {
+            handlerErrorRes(error, res);
+        }
+    }
+    //ERROR PATH TRAVERSAL
+
     async getUserOrder(req, res, next) {
         try {
             const userId = req.user.id;
@@ -10,12 +48,6 @@ class OrderController {
             let orders;
             if(orderId){
                 orders = await orderService.getDetailUserOrder(userId, orderId);
-
-                /*
-                //ERROR PATH TRAVERSAL
-                orders = await orderService.getDetailUserOrderError(userId, orderId);
-                //ERROR PATH TRAVERSAL
-                */
             }else{
                 orders = await orderService.getAllUserOrders(userId);
             }
@@ -33,12 +65,12 @@ class OrderController {
         try {
             const userId = req.user.id;
             const detailOrder = req.body;
-            const result = await orderService.addOrder(userId, detailOrder);
+            const {orderId} = await orderService.addOrder(userId, detailOrder);
             
             res.status(StatusCodes.OK).json({
                 success: true,
                 message: 'Added successfully',
-                insertId: result,
+                insertId: orderId,
             });
         } catch (error) {
             handlerErrorRes(error, res);
