@@ -5,9 +5,9 @@ import './index.css';
 import ShopContextProvider from './Context/ShopContext'; // Import your context provider
 
 createRoot(document.getElementById('root')).render(
-    <StrictMode>
+    // <StrictMode>
         <ShopContextProvider>
             <App />
         </ShopContextProvider>
-    </StrictMode>,
+    // </StrictMode>,
 );

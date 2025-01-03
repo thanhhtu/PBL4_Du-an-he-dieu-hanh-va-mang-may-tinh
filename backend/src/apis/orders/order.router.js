@@ -9,6 +9,21 @@ const route = express.Router();
 
 route.use(verifyMiddleware.checkAuth);
 
+route.get('/receipt', //query param
+    validateMiddleware.filename,
+    authorizationMiddleware.checkPermission(Permission.VIEW_ORDER),
+    orderController.getOrderReceipt
+);
+
+/*
+//ERROR PATH TRAVERSAL
+route.get('/receipt', //query param
+    authorizationMiddleware.checkPermission(Permission.VIEW_ORDER),
+    orderController.getOrderReceiptError
+);
+//ERROR PATH TRAVERSAL
+*/
+
 route.get('/:orderId?',
     validateMiddleware.orderId,
     authorizationMiddleware.checkPermission(Permission.VIEW_ORDER),
