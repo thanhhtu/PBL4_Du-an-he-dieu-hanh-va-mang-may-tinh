@@ -49,7 +49,7 @@ CREATE TABLE permission (
 
 CREATE TABLE role_permission (
 	RoleId INT NOT NULL,
-	FOREIGN KEY(RoleId) REFERENCES Role(RoleId) ON DELETE CASCADE,
+	FOREIGN KEY(RoleId) REFERENCES role(RoleId) ON DELETE CASCADE,
 	PermissionId INT NOT NULL,
 	FOREIGN KEY(PermissionId) REFERENCES permission(PermissionId) ON DELETE CASCADE
 );
