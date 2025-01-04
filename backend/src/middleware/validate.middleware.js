@@ -247,7 +247,7 @@ class ValidateMiddleware {
                 Name: Joi.string().trim().required(),
 
                 PhoneNumber: Joi.string()
-                                .pattern(new RegExp(/^(0|\+84)([0-9]{9,10})$/)) 
+                                .pattern(new RegExp(/^(0)([0-9]{9})$/)) 
                                 .required(),
 
                 Address: Joi.string().trim().required(),

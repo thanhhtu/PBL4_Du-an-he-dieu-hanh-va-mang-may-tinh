@@ -34,6 +34,12 @@ class ShippingService{
                 const shippingInfo = await this.shippingInfo(shipping);
                 allShippingInfo.push(shippingInfo);
             }
+
+            //set to default shipping at the top
+            allShippingInfo.sort((a, b) => {
+                if (a.IsDefault === b.IsDefault) return 0;
+                return a.IsDefault ? -1 : 1;
+            });
             return allShippingInfo;
         });
     }

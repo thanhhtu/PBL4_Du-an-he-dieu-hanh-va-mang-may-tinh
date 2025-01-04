@@ -25,11 +25,11 @@ const TablePaginationActions = ({ count, page, rowsPerPage, onPageChange }) => {
     };
 
     return (
-        <div className='pagination-actions'>
+        <div className='order-pagination-actions'>
             <button
                 onClick={handleFirstPageButtonClick}
                 disabled={page === 0}
-                className='pagination-button'
+                className='order-pagination-button'
                 aria-label='first page'
             >
                 <ChevronsLeft className='icon' />
@@ -37,7 +37,7 @@ const TablePaginationActions = ({ count, page, rowsPerPage, onPageChange }) => {
             <button
                 onClick={handleBackButtonClick}
                 disabled={page === 0}
-                className='pagination-button'
+                className='order-pagination-button'
                 aria-label='previous page'
             >
                 <ChevronLeft className='icon' />
@@ -45,7 +45,7 @@ const TablePaginationActions = ({ count, page, rowsPerPage, onPageChange }) => {
             <button
                 onClick={handleNextButtonClick}
                 disabled={page >= Math.ceil(count / rowsPerPage) - 1}
-                className='pagination-button'
+                className='order-pagination-button'
                 aria-label='next page'
             >
                 <ChevronRight className='icon' />
@@ -53,7 +53,7 @@ const TablePaginationActions = ({ count, page, rowsPerPage, onPageChange }) => {
             <button
                 onClick={handleLastPageButtonClick}
                 disabled={page >= Math.ceil(count / rowsPerPage) - 1}
-                className='pagination-button'
+                className='order-pagination-button'
                 aria-label='last page'
             >
                 <ChevronsRight className='icon' />
@@ -92,8 +92,6 @@ const ProfileOrder = () => {
     useEffect(() => {
         fetchDetailOrder();
     }, []);
-
-    
 
     const [page, setPage] = useState(0);
     const [ordersPerPage, setOrdersPerPage] = useState(5);
@@ -157,9 +155,9 @@ const ProfileOrder = () => {
                     <tfoot>
                         <tr>
                             <td colSpan={5}>
-                                <div className='pagination-container'>
+                                <div className='order-pagination-container'>
                                     <div className='rows-per-page'>
-                                        <span className='pagination-text'>Rows per page:</span>
+                                        <span className='order-pagination-text'>Rows per page:</span>
                                         <select
                                             className='rows-select'
                                             value={ordersPerPage}
@@ -168,12 +166,10 @@ const ProfileOrder = () => {
                                         >
                                             <option value={5}>5</option>
                                             <option value={10}>10</option>
-                                            <option value={25}>25</option>
-                                            <option value={-1}>All</option>
                                         </select>
                                     </div>
-                                    <div className='pagination-controls'>
-                                        <span className='pagination-text'>
+                                    <div className='order-pagination-controls'>
+                                        <span className='order-pagination-text'>
                                             {page * ordersPerPage + 1}-
                                             {Math.min((page + 1) * ordersPerPage, allOrderData.length)} of {allOrderData.length}
                                         </span>

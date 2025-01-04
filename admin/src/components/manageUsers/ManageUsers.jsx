@@ -39,10 +39,10 @@ const ManageUsers = () => {
 
     //delete user
     const [isDelConfirmPopupOpen, setIsDelConfirmPopupOpen] = useState(false);
-    const [currentDelProduct, setCurrentDelProduct] = useState(null);
+    const [currentDelUser, setCurrentDelUser] = useState(null);
 
-    const openDelConfirmPopup = (productId) => {
-        setCurrentDelProduct(productId);
+    const openDelConfirmPopup = (userId) => {
+        setCurrentDelUser(userId);
         setIsDelConfirmPopupOpen(true);
     };
 
@@ -111,9 +111,9 @@ const ManageUsers = () => {
             </div>
 
             {/* Delete confirm product popup */}
-            {isDelConfirmPopupOpen && currentDelProduct && (
+            {isDelConfirmPopupOpen && currentDelUser && (
                 <DeleteConfirmPopup
-                    itemId={currentDelProduct}
+                    itemId={currentDelUser}
                     onClose={() => setIsDelConfirmPopupOpen(false)}
                     onDelete={deleteUser}
                 />

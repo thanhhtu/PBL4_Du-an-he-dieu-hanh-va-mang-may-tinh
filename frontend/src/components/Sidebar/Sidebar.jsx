@@ -11,13 +11,13 @@ const Sidebar = () => {
             icon: 'fa-solid fa-gear',
             label: 'General Information'
         },
+        // {
+        //     path: '/profile/reset-password',
+        //     icon: 'fa-solid fa-key',
+        //     label: 'Reset Password'
+        // },
         {
-            path: '/profile/reset-password',
-            icon: 'fa-solid fa-key',
-            label: 'Reset Password'
-        },
-        {
-            path: '/profile/address',
+            path: '/profile/shipping-information',
             icon: 'fa-solid fa-location-dot',
             label: 'Addresses'
         },

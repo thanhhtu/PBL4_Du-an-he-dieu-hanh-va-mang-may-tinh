@@ -49,9 +49,14 @@
     font-weight: 500;
 }
 
-.order-change-address {
-    color: #2579f2;
-    text-decoration: none;
+.order-default-address {
+    color: #ef4141;
+    font-size: 13px;
+    cursor: pointer;
+    background-color: white;
+    border: solid 1px #ef4141;
+    border-radius: 0.2rem;
+    padding: 5px;
 }
 
 /* Cart Container Section */

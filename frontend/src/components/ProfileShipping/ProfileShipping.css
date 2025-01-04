@@ -1,0 +1,135 @@
+.shipping-container {
+    width: 42rem;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.shipping-content{
+    height: 650px;
+}
+
+.shipping-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.shipping-header-title {
+    font-size: 23px;
+    font-weight: 700;
+    padding-left: 10px;
+}
+
+.shipping-add {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background-color: #28A745;
+    color: white;
+    font-size: 16px;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    border: none;
+    transition: all 0.25s ease;
+}
+
+.shipping-add span {
+    font-size: 20px;
+}
+
+.shipping-add:hover {
+    background-color: #218838;
+}
+
+.shipping-label {
+    background-color: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    position: relative;
+    transition: border-color 0.2s;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.shipping-label-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.8rem;
+}
+
+.shipping-label-title-section {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.shipping-label-name {
+    font-weight: 600;
+    font-size: 1.125rem;
+}
+
+.shipping-label-default-badge {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+    border: 1px solid #ef4141;
+    color: #ef4141;
+    border-radius: 0.25rem;
+}
+
+.shipping-label-action {
+    display: flex;
+    align-items: center;
+}
+
+.shipping-label-action button {
+    color: #3b82f6;
+    font-size: 13px;
+    cursor: pointer;
+    background-color: white;
+    border: none;
+    border-radius: 0.2rem;
+    transition: all 0.2s ease;
+}
+
+.shipping-label-action button:hover {
+    color: #3675db
+}
+
+.shipping-label-del {
+    color: #ef4141!important;
+}
+
+.shipping-label-del:hover{
+    color: #ce3939!important;
+}
+
+.shipping-label-location {
+    color: #4b5563;
+    margin-bottom: 0.5rem;
+}
+
+.shipping-label-phone-section {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #4b5563;
+}
+
+.shipping-label-set-default {
+    margin-top: 0.75rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+    cursor: pointer;
+    color: #28A745;
+    transition: all 0.2s ease;
+}
+
+.shipping-label-set-default:hover {
+    background-color: rgb(202, 228, 208);
+}

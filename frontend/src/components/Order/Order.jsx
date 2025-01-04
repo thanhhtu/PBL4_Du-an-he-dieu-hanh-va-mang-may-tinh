@@ -3,7 +3,6 @@ import { ShopContext } from '../../Context/ShopContext';
 import './Order.css';
 import { errorToast, successToast } from '../Notification/Notification';
 import authService from '../../services/auth.service';
-import { Link, useNavigate } from 'react-router-dom';
 import { formattedPrice } from '../../services/formatNum.service';
 
 const Order = () => {
@@ -75,7 +74,7 @@ const Order = () => {
         }));
     };
 
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     //add order
     const fetchAddOrder = async () => {
         let resData;
@@ -94,7 +93,10 @@ const Order = () => {
 
         if(resData.success){
             successToast('Order successfully');
-            navigate(`/profile/order`);
+            // navigate(`/profile/order`);
+            setTimeout(() => {
+                window.location.href = '/profile/order';
+            }, 1200);
         }else{
             errorToast(resData.message);
         }
@@ -114,7 +116,7 @@ const Order = () => {
                     <span className='order-address-name'>{shippingInfoItem.Name}</span>
                     <span>{shippingInfoItem.PhoneNumber}</span>
                     <span>{shippingInfoItem.Address}</span>
-                    <a href='#' className='order-change-address'>Change</a>
+                    <div className='order-default-address'>Default</div>
                 </div>
             </div>
 

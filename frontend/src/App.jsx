@@ -1,45 +1,39 @@
-import React, { useContext, useEffect } from 'react'
-import './App.css'
+import React, { useContext, useEffect } from 'react';
+import './App.css';
 import Navbar from './components/Navbar/Navbar'
 import {
     BrowserRouter,
     Routes,
     Route,
-    useLocation,
-    useNavigate,
-    Outlet,
-} from 'react-router-dom'
-import Shop from './pages/Shop'
-import ShopCategory from './pages/ShopCategory/ShopCategory'
-import Product from './pages/Product'
-import Cart from './pages/Cart'
-import Footer from './components/Footer/Footer'
-import men_banner from './components/assets/banner_mens.png'
-import Login from './pages/LoginSignup/Login'
-import Register from './pages/LoginSignup/Register'
-import ForgetPassword from './pages/LoginSignup/ForgetPassword'
-import ResetPassword from './pages/LoginSignup/ResetPassword'
-import authService from './services/auth.service'
-import {
-    errorToast,
-    ReusableToastContainer,
-} from './components/Notification/Notification'
-import Profile from './pages/Profile/Profile'
-import Order from './components/Order/Order'
-import { PrivateAuthRoute, PrivateCartRoute } from './services/PrivateRoute'
-import Receipt from './components/Receipt/Receipt'
-import { ShopContext } from './Context/ShopContext'
+    useLocation
+} from 'react-router-dom';
+import Shop from './pages/Shop';
+import ShopCategory from './pages/ShopCategory/ShopCategory';
+import Product from './pages/Product';
+import Cart from './pages/Cart';
+import Footer from './components/Footer/Footer';
+import men_banner from './components/assets/banner_mens.png';
+import Login from './pages/LoginSignup/Login';
+import Register from './pages/LoginSignup/Register';
+import ForgetPassword from './pages/LoginSignup/ForgetPassword';
+import ResetPassword from './pages/LoginSignup/ResetPassword';
+import authService from './services/auth.service';
+import {ReusableToastContainer} from './components/Notification/Notification';
+import Profile from './pages/Profile/Profile';
+import Order from './components/Order/Order';
+import { PrivateAuthRoute, PrivateCartRoute } from './services/PrivateRoute';
+import Receipt from './components/Receipt/Receipt';
 
 const TokenManager = () => {
     useEffect(() => {
         authService.checkAuthToken()
-    }, [])
-    return null
-}
+    }, []);
+    return null;
+};
 
 const RouterForApp = () => {
-    const location = useLocation()
-    const isInvoicePage = location.pathname.startsWith('/receipt')
+    const location = useLocation();
+    const isInvoicePage = location.pathname.startsWith('/receipt');
     return (
         <div>
             <ReusableToastContainer />
@@ -72,16 +66,13 @@ const RouterForApp = () => {
                 </Route>
 
                 <Route element={<PrivateAuthRoute />}>
-                    {/* <Route path="/receipt/" element={<Receipt />}>
-                        <Route path=":orderId" element={<Receipt />} />
-                    </Route> */}
                     <Route path="/receipt" element={<Receipt />} />
                 </Route>
             </Routes>
             {!isInvoicePage && <Footer />}
         </div>
-    )
-}
+    );
+};
 
 function App() {
     return (
@@ -90,7 +81,7 @@ function App() {
                 <RouterForApp />
             </BrowserRouter>
         </div>
-    )
-}
+    );
+};
 
-export default App
+export default App;
