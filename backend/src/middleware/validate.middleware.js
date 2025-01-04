@@ -103,7 +103,7 @@ class ValidateMiddleware {
         try {
             const validateInput = Joi.object({
                 Email: Joi.string()
-                        .email({ minDomainSegments: 2 }) //SQL INJECTION IF BE COMMENTED
+                        // .email({ minDomainSegments: 2 }) //SQL INJECTION IF BE COMMENTED
                         .trim()
                         .required(),
 

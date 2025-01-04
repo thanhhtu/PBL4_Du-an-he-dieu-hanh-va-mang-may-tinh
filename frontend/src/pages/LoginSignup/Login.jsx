@@ -13,11 +13,11 @@ const Login = () => {
     };
 
     //Login
-    const [emailError, setEmailError] = useState('');
-    const isValidEmail = (email) => {
-        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return regex.test(email);
-    };
+    // const [emailError, setEmailError] = useState('');
+    // const isValidEmail = (email) => {
+    //     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    //     return regex.test(email);
+    // };
 
     const [formData, setFormData] = useState({
         Email: '',
@@ -33,23 +33,23 @@ const Login = () => {
         }));
 
 
-        //check email
-        if (name === 'Email') {
-            if (!isValidEmail(value)) {
-                setEmailError('Invalid email address');
-            } else {
-                setEmailError('');
-            }
-        }
+        // //check email
+        // if (name === 'Email') {
+        //     if (!isValidEmail(value)) {
+        //         setEmailError('Invalid email address');
+        //     } else {
+        //         setEmailError('');
+        //     }
+        // }
     };
 
-    const isFormValid = () => {
-        return (
-            formData.Email.trim() !== '' && 
-            isValidEmail(formData.Email) &&
-            formData.Password.trim() !== ''
-        );
-    };
+    // const isFormValid = () => {
+    //     return (
+    //         formData.Email.trim() !== '' && 
+    //         isValidEmail(formData.Email) &&
+    //         formData.Password.trim() !== ''
+    //     );
+    // };
 
     const login = async () => {
         let resData;
@@ -90,14 +90,14 @@ const Login = () => {
                 <div className='loginRegister-fields'>
                     <div>
                         <input 
-                            className={emailError && 'error-info'}
+                            // className={emailError && 'error-info'}
                             name='Email' 
                             value={formData.Email} 
                             onChange={changeHandler}  
-                            type='email' 
+                            // type='email' 
                             placeholder='Email Address' 
                         />
-                        {emailError && <div className='error-message'>The email address is invalid</div>}
+                        {/* {emailError && <div className='error-message'>The email address is invalid</div>} */}
                     </div>
                     
                     <div className='password-wrapper'>
@@ -128,8 +128,8 @@ const Login = () => {
                 </div>
                 
                 <button 
-                    disabled={!isFormValid()} 
-                    className={!isFormValid() ? 'disabled-button' : ''} 
+                    // disabled={!isFormValid()} 
+                    // className={!isFormValid() ? 'disabled-button' : ''} 
                 >
                     CONTINUE
                 </button>
