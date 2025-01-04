@@ -238,7 +238,7 @@ const DescriptionReviewBox = ({ product, onReviewAdded }) => {
                                     <div className='review-user'>{review.User}</div>
                                     <div className='review-date'>
                                         {review.UpdatedAt || review.CreatedAt 
-                                            ? format(new Date(review.UpdatedAt || review.CreatedAt), 'yyyy-MM-dd HH:mm:ss')
+                                            ? format(new Date(review.UpdatedAt || review.CreatedAt), 'dd/MM/yyyy HH:mm:ss')
                                             : review.CreatedAt}
                                     </div>
                                     <div className='review-star'>
@@ -324,7 +324,7 @@ const DescriptionReviewBox = ({ product, onReviewAdded }) => {
                                 ></textarea>
                             </div>
 
-                            <button type='submit' className='submit-review'>Submit Review</button>
+                            <button type='submit' className='submit-review'>SUBMIT</button>
                         </form>
                     </div>
                 </div>

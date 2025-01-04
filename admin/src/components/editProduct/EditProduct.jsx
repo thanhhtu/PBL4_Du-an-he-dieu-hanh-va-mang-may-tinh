@@ -64,6 +64,12 @@ const EditProductPopup = ({ product, onClose, fetchInfo }) => {
         };
     }
 
+    //Format Price
+    const formattedPrice = (price) => {
+        const newPrice = price;
+        return new Intl.NumberFormat('vi-VN').format(newPrice);
+    }
+
     return (
         <div className='edit-product'>
             <div className='edit-product-content'>
@@ -96,7 +102,7 @@ const EditProductPopup = ({ product, onClose, fetchInfo }) => {
                         <div className='editProduct-itemField'>
                             <p>Price</p>
                             <input 
-                                value={productDetail.Price} 
+                                value={formattedPrice(productDetail.Price)} 
                                 onChange={productHandler} 
                                 type='text' 
                                 name='Price' 
