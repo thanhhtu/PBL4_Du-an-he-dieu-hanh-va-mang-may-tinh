@@ -33,7 +33,7 @@ const Login = () => {
         }));
 
 
-        //check email
+        // //check email
         if (name === 'Email') {
             if (!isValidEmail(value)) {
                 setEmailError('Invalid email address');

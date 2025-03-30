@@ -14,6 +14,7 @@ route.post('/login', validateMiddleware.checkLogin, authController.loginError);
 //SQL INJECTION
 */
 
+
 route.post('/forget-password', validateMiddleware.checkForgetPassword, authController.forgetPassword);
 route.post('/reset-password', validateMiddleware.checkResetPassword, authController.resetPassword);
 
