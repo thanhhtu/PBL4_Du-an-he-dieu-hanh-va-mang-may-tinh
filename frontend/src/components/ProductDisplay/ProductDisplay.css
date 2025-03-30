@@ -1,0 +1,133 @@
+.productDisplay{
+    display: flex;
+    margin: 0px 130px;
+}
+
+.productDisplay-left{
+    display:flex;
+    gap: 17px;
+}
+
+.productDisplay-img-list{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.productDisplay-img-list img{
+    height: 190px;
+}
+
+.productDisplay-main-img{
+    width: 480px;
+    height: 602px;
+}
+
+.productDisplay-right{
+    margin: 0px 70px;
+    display: flex;
+    flex-direction: column;
+}
+
+.productDisplay-right h1{
+    color: #3d3d3d;
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.productDisplay-right-stars{
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    gap: 15px;
+    color: #757575;
+}
+
+.review-star {
+    color: #ffc107;
+    font-size: 28px;
+}
+
+.productDisplay-right-prices{
+    display: flex;
+    margin: 15px 0px;
+    gap: 10px;
+    font-size: 28px;
+    font-weight: 700;
+    color: #ff4141;
+}
+
+.productDisplay-right-description{
+    color: #757575;
+    margin-bottom: 25px;
+}
+
+.productDisplay-right-safe{
+    color: #757575;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    height: 30px;
+    margin-bottom: 25px;
+}
+
+.productDisplay-right-safe i{
+    color: #FF4141;
+    font-size: 18px;
+}
+
+.productDisplay-right-quantity{
+    display: flex;
+    gap: 10px;
+    width: 500px;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.productDisplay-quantity{
+    width: 120.6px;
+    display: flex;
+    height: 40px;
+    border: solid 1px #69696956;
+}
+
+.productDisplay-quantity input{
+    display: block;
+    width: 45px;
+    background-color: transparent;
+    border: none;
+    border-left: solid 1px #69696956;
+    border-right: solid 1px #69696956;
+    text-align: center;
+}
+
+.productDisplay-quantity button{
+    display: block;
+    width: 35px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.productDisplay-product-quantity{
+    color: #757575;
+}
+
+.productDisplay-right-btn{
+    padding: 20px 40px;
+    width: 200px;
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+    background: #FF4141;
+    margin-bottom: 40px;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.productDisplay-right-btn:hover{
+    background: #e33535;
+}

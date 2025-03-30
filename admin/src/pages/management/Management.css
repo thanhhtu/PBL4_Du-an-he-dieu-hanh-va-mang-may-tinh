@@ -1,0 +1,29 @@
+.management{
+    display: flex;
+    flex-direction: column;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+.management-content{
+    display: flex;
+    flex-direction: row;
+    height: calc(100vh - 88px);
+}
+
+@media(max-width: 800px){
+    .manageProducts{
+        flex-direction: column;
+    }
+}
+
+@media(max-width: 800px){
+    .management-content{
+        flex-direction: column;
+        height: calc(100vh - 200px);
+    }
+}

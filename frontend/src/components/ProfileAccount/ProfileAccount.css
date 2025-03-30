@@ -1,0 +1,55 @@
+.user-container {
+    width: 600px;
+    margin: 0 auto;
+    padding: 40px 50px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.user-header {
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #d4d3d3;
+}
+
+.user-header h2 {
+    margin: 0;
+    color: #333;
+    font-size: 1.5rem;
+}
+
+.user-body {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.user-itemField {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.user-itemField p {
+    margin: 0;
+    font-weight: 500;
+    color: #666;
+}
+
+.user-itemField input {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    background-color: #f9f9f9;
+}
+
+.user-itemField input:read-only {
+    background-color: #f5f5f5;
+    cursor: not-allowed;
+}
+
+.user-itemField input::placeholder {
+    color: #999;
+}
